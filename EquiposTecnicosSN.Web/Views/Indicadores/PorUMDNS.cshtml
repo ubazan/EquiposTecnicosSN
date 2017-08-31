@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Indicadores por Equipos";
+}
+<div class="row" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart fa-fw"></i> UMDNS y Ubicación
+            </div>
+
+            <div class="panel-body">
+                <form id="formIndicadoresUMDNS" class="consulta-indicadores" method="get" data-nqn-ajax="true" action="@Url.Action("IndicadoresPorUMDNS", "Indicadores")" data-nqn-target="#indicadoresEquipoUMDNS" data-nqn-tipo-indicador="UMDNS">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">UMDNS</label>
+                                <input class="form-control text-box single-line"
+                                       data-umdns-autocomplete-codigo="@Url.Action("AutocompleteCodigoUMDNS", "EquiposBase")"
+                                       data-val="true"
+                                       data-val-required="El campo UMDNS es requerido."
+                                       id="umdns"
+                                       name="umdns" type="text" value="">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="umdns" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Ubicaci&oacute;n</label>
+                                @Html.DropDownList("UbicacionId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="margin-top: 5px;">Fecha de Incio</label>
+                                <input class="form-control date-picker text-box single-line"
+                                       id="fechaInicio" name="fechaInicio" type="datetime"
+                                       data-val="true" data-val-required="Debe seleccionar la fecha de inicio."
+                                       value="">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="fechaInicio" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="margin-top: 5px;">Fecha de Fin</label>
+                                <input class="form-control date-picker text-box single-line"
+                                       id="fechaFin" name="fechaFin" type="datetime"
+                                       data-val="true" data-val-required="Debe seleccionar la fecha de fin."
+                                       value="">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="fechaFin" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="calcularIndicadores" type="submit" value="Calcular Indicadores" class="btn btn-primary pull-right" />
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="indicadoresEquipoUMDNS" class="ajax-result-list">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_ParetoIndicadores")

@@ -1,0 +1,51 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Traslado
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Traslado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo.NombreCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaTraslado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaTraslado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UbicacionOrigenId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UbicacionOrigenId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UbicacionDestinoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UbicacionDestinoId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrasladoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,46 @@
+﻿
+@model EquiposTecnicosSN.Entities.Equipos.Equipo
+<div data-role="content">
+    <form>
+        <label id="marca" hidden>@Html.DisplayFor(model => model.InformacionHardware.Marca.Nombre)</label>
+        <label id="modelo" hidden>@Html.DisplayFor(model => model.InformacionHardware.Modelo.Nombre)</label>
+        <label id="nroSerie" hidden>@Html.DisplayFor(model => model.InformacionHardware.NumeroSerie)</label>
+    </form>
+</div>
+<div>
+    <script type="text/javascript">
+        function convertImgToBase64URL() {
+            var imgToExport = document.getElementById('qr').children[0];
+            var canvas = document.createElement('canvas');
+            canvas.width = imgToExport.width;
+            canvas.height = imgToExport.height;
+            canvas.getContext('2d').drawImage(imgToExport, 0, 0);
+            return canvas.toDataURL('image/png')
+        }
+        function generarPDF() {
+            var pdf = {
+                //pageSize: 'B9',
+                pageOrientation: 'landscape',
+                content: [
+                    {
+                        table: {
+                            headerRows: 2,
+                            body: [
+                                [{ image: convertImgToBase64URL() },
+                                 { text: 'Electromedicina - HPN', bold: true, fontSize: 35, margin: [0, 90] }],
+                            ]
+                        },
+                        layout: 'noBorders'
+                    }
+                ]
+            };
+
+            pdfMake.createPdf(pdf).print();
+        };
+        var marca = document.getElementById('marca').innerHTML;
+        var modelo = document.getElementById('modelo').innerHTML;
+        var nroSerie = document.getElementById('nroSerie').innerHTML;
+        var text = marca + '\t' + modelo + '\t' + nroSerie;
+        document.getElementById('qr').innerHTML = create_qrcode(text);
+    </script>
+</div>

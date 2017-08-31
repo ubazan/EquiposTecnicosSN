@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Indicadores por Ubicación";
+}
+
+<!-- UBICACION Y SECTORES -->
+<div class="row" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading"><i class="fa fa-hospital-o fa-fw"></i> Ubicaci&oacute;n y Sectores</div>
+            <div class="panel-body">
+                <form id="formIndicadoresEquipoPorUbicacion" class="consulta-indicadores" method="get" data-nqn-ajax="true" action="@Url.Action("IndicadoresPorUbicacion", "Indicadores")" data-nqn-target="#indicadoresEquipoPorUbicacion" data-nqn-tipo-indicador="Ubicacion">
+
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="margin-top: 5px;">Ubicaci&oacute;n</label>
+                                @Html.DropDownList("UbicacionId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="margin-top: 5px;">Sector</label>
+                                @Html.DropDownList("SectorId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="margin-top: 5px;">Fecha de Incio</label>
+                                <input class="form-control date-picker text-box single-line"
+                                       id="fechaInicio" name="fechaInicio" type="datetime"
+                                       data-val="true" data-val-required="Debe seleccionar la fecha de inicio."
+                                       value="">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="fechaInicio" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="margin-top: 5px;">Fecha de Fin</label>
+                                <input class="form-control date-picker text-box single-line"
+                                       id="fechaFin" name="fechaFin" type="datetime"
+                                       data-val="true" data-val-required="Debe seleccionar la fecha de fin."
+                                       value="">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="fechaFin" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="calcularIndicadores" type="submit" value="Calcular Indicadores" class="btn btn-primary pull-right" />
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="indicadoresEquipoPorUbicacion" class="ajax-result-list">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_ParetoIndicadores")

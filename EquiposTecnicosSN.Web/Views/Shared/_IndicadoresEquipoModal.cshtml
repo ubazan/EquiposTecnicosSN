@@ -1,0 +1,45 @@
+﻿
+<!-- Modal -->
+<div class="modal fade" id="modalIndicadoresEquipo" tabindex="-1" role="dialog" aria-labelledby="IndicadoresEquipo" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Indicadores del Equipo</h4>
+            </div>
+            <div class="modal-body modal-indicadores">
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-sm-6">
+                        <label style="margin-top: 5px;">Fecha de Incio</label>
+                        <input class="form-control date-picker text-box single-line" id="fechaInicioPeriodo" name="fechaInicio" type="datetime" value="">
+                    </div>
+                    <div class="col-sm-6">
+                        <label style="margin-top: 5px;">Fecha de Fin</label>
+                        <input class="form-control date-picker text-box single-line" id="fechaFinPeriodo" name="fechaFin" type="datetime" value="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button id="btnCalcularIndicadores" type="button" class="btn btn-primary pull-right" data-nqn-action="@Url.Action("IndicadoresEquipo","Indicadores")">Calcular Indicadores</button>
+                    </div>
+                </div>
+                
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-md-12">
+                        <div id="indicadoresEquipoResult">
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

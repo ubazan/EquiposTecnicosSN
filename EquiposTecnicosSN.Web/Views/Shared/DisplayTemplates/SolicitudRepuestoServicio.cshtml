@@ -1,0 +1,111 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.FechaInicio)
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>
+                Usuario de Inicio de la Solicitud
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.UsuarioInicio)
+            </p>
+        </div>
+    </div>
+</div>
+
+@if (Model.FechaCierre != null)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>
+                    @Html.DisplayNameFor(model => model.FechaCierre)
+                </label>
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.FechaCierre)
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>
+                    Usuario de Cierre de la Solicitud
+                </label>
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.UsuarioCierre)
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.Repuesto)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Repuesto.Nombre)
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group" style="text-align:center">
+            <label>
+                @Html.DisplayNameFor(model => model.Repuesto.Codigo)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Repuesto.Codigo)
+            </p>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group" style="text-align:center">
+            <label>
+                @Html.DisplayNameFor(model => model.CantidadRepuesto)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.CantidadRepuesto)
+            </p>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.Proveedor)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Proveedor.Nombre)
+            </p>
+        </div>
+    </div>
+</div>
+
+@if (Model.Comentarios != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>
+                    @Html.DisplayNameFor(model => model.Comentarios)
+                </label>
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Comentarios)
+                </p>
+            </div>
+        </div>
+    </div>
+}

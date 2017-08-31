@@ -1,0 +1,54 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Equipo
+@using EquiposTecnicosSN.Entities.Equipos
+
+@{
+    ViewBag.Title = "Detalle de Equipo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+
+@if (Model.InformacionHardware != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model.InformacionHardware)
+        </div>
+    </div>
+}
+
+@if (Model.InformacionComercial != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model.InformacionComercial)
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_DisplayNotasEquipo", Model)
+    </div>
+</div>
+
+@Html.Partial("_OrdenesDeTrabajoEquipo", Model)
+
+@Html.Partial("_TrasladosEquipoModal", Model.Traslados)
+
+@Html.Partial("_IndicadoresEquipoModal")
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+        <input id="indicadoresBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalIndicadoresEquipo" data-equipo-id="@Model.EquipoId" value="Calcular Indicadores" />
+        @if(Model.Estado != EstadoDeEquipo.NoFuncional)
+        {
+            Html.ActionLink("Dar de Baja", "BajaEquipo", "EquiposBase", new { id = Model.EquipoId }, new { @class = "btn btn-danger" });
+        }
+    </div>
+</div>

@@ -1,0 +1,140 @@
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@model EquiposTecnicosSN.Web.Models.MCViewModel
+@{
+    ViewBag.Title = "Nueva Orden de Trabajo para Mantenimiento Correctivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> @ViewBag.Title</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Odt.OrdenDeTrabajoId)
+                    @Html.HiddenFor(model => model.Odt.EquipoId)
+                    @Html.HiddenFor(model => model.Odt.Estado)
+                    @Html.HiddenFor(model => model.Odt.NumeroReferencia)
+                    @Html.HiddenFor(model => model.Odt.UsuarioInicio)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Odt.NumeroReferencia)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Odt.NumeroReferencia)
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Odt.Equipo)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Odt.Equipo.NombreCompleto)
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">¿El equipo se encuentra parado?</label>
+                                @Html.EditorFor(model => model.Odt.EquipoParado, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">¿Existe otro equipo de reemplazo?</label>
+                                @Html.EditorFor(model => model.Odt.EquipoRemplazo, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Odt.FechaInicio)
+                                    @Html.HiddenFor(model => model.Odt.FechaInicio)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Odt.FechaInicio)
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    &nbsp;
+
+                                </label>
+                                <p class="form-control-static">
+                                    &nbsp;
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label switch-label">Prioridad</label>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-success-outline active">
+                                        @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" })
+                                        @OrdenDeTrabajoPrioridad.Normal.ToString()
+                                    </label>
+                                    <label class="btn btn-warning-outline">
+                                        @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" })
+                                        @OrdenDeTrabajoPrioridad.Urgencia.ToString()
+                                    </label>
+                                    <label class="btn btn-danger-outline">
+                                        @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" })
+                                        @OrdenDeTrabajoPrioridad.Emergencia.ToString()
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Odt.Descripcion, htmlAttributes: new { @class = "control-label" })
+                                @Html.TextAreaFor(model => model.Odt.Descripcion, htmlAttributes: new { @class = "form-control", rows = "5" })
+                                @Html.ValidationMessageFor(model => model.Odt.Descripcion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Partial("_ListObservaciones", Model.Odt)
+                    @Html.Partial("_AddObservaciones", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <a href="@Url.Action("Details", "EquiposBase",new { id = Model.Odt.EquipoId})" class="btn btn-default" style="margin-bottom:5px;">Cancelar</a>
+                <input type="submit" value="Guardar" class="btn btn-primary" style="margin-bottom:5px;" />
+                <!--<input type="submit" name="action" value="Guardar y diagnosticar" class="btn btn-info" style="margin-bottom:5px;" />-->
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $("#@Html.IdFor(model => model.Odt.EquipoParado)").bootstrapSwitch({
+                onColor: "danger",
+                onText: "Si",
+                offText: "No"
+            });
+
+            $("#@Html.IdFor(model => model.Odt.EquipoParado)").on("switchChange.bootstrapSwitch", function (event, state) {
+                if (state) {
+                    $("#Emergencia").click();
+                }
+            });
+
+            //Switch para ver si el equipo es reemplazado(En el alta de un ODT) -- Jose Gutierrez 23/05/2017
+            $("#@Html.IdFor(model => model.Odt.EquipoRemplazo)").bootstrapSwitch({
+                onText: "Si",
+                offText: "No"
+            });
+            //Switch para enviar el equipo a otro tecnico(Tercero)(En el alta de un ODT) -- Jose Gutierrez 23/05/2017
+            $("#@Html.IdFor(model => model.Odt.ReparoTercero)").bootstrapSwitch({
+                onText: "Si",
+                offText: "No"
+            });
+        });
+    </script>
+}

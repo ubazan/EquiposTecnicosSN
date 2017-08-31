@@ -1,0 +1,16 @@
+﻿@model EquiposTecnicosSN.Web.Models.MPIndexViewModel
+
+
+@Html.Partial("_SearchODTsMP", Model.Search)
+
+<!-- PROXIMOS -->
+@{
+    ViewBag.SubTitle = "Mantenimientos Preventivos Próximos";
+}
+@Html.Partial("_ListODTsMP", Model.Proximas)
+
+<!-- ABIERTOS -->
+@{
+    ViewBag.SubTitle = "Mantenimientos Preventivos Abiertos";
+}
+@Html.Partial("_ListODTsMP", Model.Abiertas)

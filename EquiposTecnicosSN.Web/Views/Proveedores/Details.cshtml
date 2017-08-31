@@ -1,0 +1,18 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Proveedor
+
+@{
+    ViewBag.Title = "Detalle de Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.DisplayFor(model => model)
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+        </div>
+    </div>
+</div>
+

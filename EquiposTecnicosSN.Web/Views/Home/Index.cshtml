@@ -1,0 +1,127 @@
+﻿@model EquiposTecnicosSN.Web.Models.HomeViewModel
+@{
+    ViewBag.Title = "Bienvenido";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-medkit fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="big">@Html.DisplayFor(model => model.EquiposFuncionalesCount)</div>
+                        <div>Operativos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "EquiposBase")">
+                <div class="panel-footer">
+                    <span class="pull-left">Equipos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-wrench fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="big">@Html.DisplayFor(model => model.CorrectivosCount)</div>
+                        <div>Emergencias</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("IndexMantenimientos", "ODTMantenimientoCorrectivo")">
+                <div class="panel-footer">
+                    <span class="pull-left"> Mant. Correctivos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-calendar fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="big">@Html.DisplayFor(model => model.PreventivosCount)</div>
+                        <div>Pr&oacute;ximos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("IndexMantenimientos", "ODTMantenimientoCorrectivo")">
+                <div class="panel-footer">
+                    <span class="pull-left">Mant. Preventivos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-gears fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="big">@Html.DisplayFor(model => model.RepuestosCount)</div>
+                        <div>Repuestos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "StockRepuestos")">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Stock</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<hr />
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"  class="active">
+        <a href="#equipos" aria-controls="equipos" role="tab" data-toggle="tab">Equipos</a>
+    </li>
+    <li role="presentation">
+        <a href="#odts" aria-controls="odts" role="tab" data-toggle="tab">Ordenes de Trabajo</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="equipos">
+    <!-- BUSCAR EQUIPO -->
+    @Html.Partial("_SearchEquipos", Model.searchEquipo)
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="odts">
+        <!-- BUSCAR ODT -->
+        @Html.Partial("_SearchODTs", Model.searchOdt)
+    </div>
+</div>
+
+<!-- TRASLADAR EQUIPO -->
+@Html.Partial("_TrasladarEquipoModal")
+
+<!-- GENERAR QR DE EQUIPO -->
+@Html.Partial("_GenerarQRModal")

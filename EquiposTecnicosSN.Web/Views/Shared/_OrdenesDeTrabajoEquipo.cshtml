@@ -1,0 +1,185 @@
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@using EquiposTecnicosSN.Web.CustomExtensions
+@model EquiposTecnicosSN.Entities.Equipos.Equipo
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> Listado de Ordenes de trabajo para Mantenimientos Correctivos</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.ActionLink("Nueva Orden para Mantenimiento Correctivo", "CreateForEquipo", "ODTMantenimientoCorrectivo", new { id = Model.EquipoId }, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped search-odts">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        Nº de Referencia
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+                                    <th>
+                                        Fecha de Inicio
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.OrdenesDeTrabajo.Where(model => model is OrdenDeTrabajoMantenimientoCorrectivo))
+                                {
+                                    string cssClass;
+
+                                    if (item.Estado != OrdenDeTrabajoEstado.Cerrada)
+                                    {
+                                        switch (item.Prioridad)
+                                        {
+                                            case OrdenDeTrabajoPrioridad.Emergencia:
+                                                cssClass = "danger";
+                                                break;
+
+                                            case OrdenDeTrabajoPrioridad.Urgencia:
+                                                cssClass = "warning";
+                                                break;
+
+                                            case OrdenDeTrabajoPrioridad.Normal:
+                                                cssClass = "success";
+                                                break;
+
+                                            default:
+                                                cssClass = "";
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cssClass = "info";
+                                    }
+                                    <tr class="@cssClass">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NumeroReferencia)
+                                        </td>
+                                        <td>
+                                            @item.Estado.DisplayName()
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FechaInicio)
+                                        </td>
+                                        <td>
+
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Details", "ODTMantenimientoCorrectivo", new { id = item.OrdenDeTrabajoId }, null)"
+                                               title="Ver Orden de trabajo">
+                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-calendar fa-fw"></i> Listado de Ordenes de trabajo para Mantenimientos Preventivos</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @Html.ActionLink("Nueva Orden para Mantenimiento Preventivo", "CreateForEquipo", "ODTMantenimientoPreventivo", new { id = Model.EquipoId }, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped search-odts">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        Nº de Referencia
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+                                    <th>
+                                        Fecha de Inicio
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.OrdenesDeTrabajo.Where(model => model is OrdenDeTrabajoMantenimientoPreventivo))
+                                {
+                                    string cssClass;
+
+                                    if (item.Estado != OrdenDeTrabajoEstado.Cerrada)
+                                    {
+                                        switch (item.Prioridad)
+                                        {
+                                            case OrdenDeTrabajoPrioridad.Emergencia:
+                                                cssClass = "danger";
+                                                break;
+
+                                            case OrdenDeTrabajoPrioridad.Urgencia:
+                                                cssClass = "warning";
+                                                break;
+
+                                            case OrdenDeTrabajoPrioridad.Normal:
+                                                cssClass = "success";
+                                                break;
+
+                                            default:
+                                                cssClass = "";
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cssClass = "info";
+                                    }
+                                    <tr class="@cssClass">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NumeroReferencia)
+                                        </td>
+                                        <td>
+                                            @item.Estado.DisplayName()
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FechaInicio)
+                                        </td>
+                                        <td>
+
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Details", "ODTMantenimientoPreventivo", new { id = item.OrdenDeTrabajoId }, null)"
+                                               title="Ver Orden de trabajo">
+                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

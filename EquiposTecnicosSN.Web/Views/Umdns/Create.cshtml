@@ -1,0 +1,24 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Umdns
+
+@{
+    ViewBag.Title = "Nuevo Código UMDNS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EditorFor(model => model)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,21 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.ObservacionOrdenDeTrabajo
+
+@using (Html.BeginCollectionItem("Observaciones"))
+{
+@Html.HiddenFor(model => model.OrdenDeTrabajoId)
+@Html.HiddenFor(model => model.ObservacionOrdenDeTrabajoId)
+@Html.HiddenFor(model => model.Fecha)
+@Html.HiddenFor(model => model.Usuario)
+
+    <div class="form-group">
+        <label>Fecha: </label>
+        @Html.DisplayFor(model => model.Fecha)
+        <br />
+        <label>Usuario: </label>
+        @Html.DisplayFor(model => model.Usuario)
+        <br />
+        @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label" })
+        @Html.TextAreaFor(model => model.Observacion, htmlAttributes: new { @class = "form-control", rows = "5" })
+
+    </div>
+}

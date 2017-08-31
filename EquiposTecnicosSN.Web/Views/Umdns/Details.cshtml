@@ -1,0 +1,15 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Umdns
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+
+<a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+<a href="@Url.Action("Edit")" class="btn btn-warning"> Editar</a>

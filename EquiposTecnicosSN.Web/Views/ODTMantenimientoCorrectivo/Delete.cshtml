@@ -1,0 +1,153 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>OrdenDeTrabajo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo.NombreCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioInicioId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioInicioId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prioridad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prioridad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EquipoParado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EquipoParado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnostico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnostico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DetalleReparacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetalleReparacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CausaRaiz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CausaRaiz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDiagnostico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDiagnostico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioDiagnosticoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioDiagnosticoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaReparacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaReparacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioReparacionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioReparacionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCierre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCierre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioCierreId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioCierreId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

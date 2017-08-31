@@ -1,0 +1,28 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoPreventivo
+@{
+    ViewBag.Title = "Editar Gastos de Orden de Trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    
+    <div class="row">
+        <div class="col-md-12">
+            @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+            @Html.DisplayFor(model => model)
+        </div>
+    </div>
+
+    @Html.Partial("_EditGastos", Model.Gastos)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <input type="submit" value="Guardar Gastos" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

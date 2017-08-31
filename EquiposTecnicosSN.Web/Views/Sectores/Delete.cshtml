@@ -1,0 +1,21 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Sector
+
+@{
+    ViewBag.Title = "¿Seguro que desea eliminar este Elemento?";
+    ViewBag.PanelStyle = "danger";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model)
+        </div>
+    </div>
+
+    <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+    <input type="submit" value="Eliminar" class="btn btn-danger" />
+}

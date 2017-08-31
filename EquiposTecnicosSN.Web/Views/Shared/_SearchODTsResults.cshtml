@@ -1,0 +1,96 @@
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Mantenimiento
+@model IPagedList<OrdenDeTrabajo>
+
+<div class="pagedList" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
+    @Html.PagedListPager(Model, page => Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { page = page }), PagedListRenderOptions.Classic)
+</div>
+
+<div class="pagedList" style="text-align: right !important" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
+    <label>Mostrando</label>
+
+    @for (int i = 25; i <= 100; i += 25)
+    {
+        <span class="@(Model.PageSize == i ? "disabeld": "")">
+            <a href="@Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { pageSize = i })" class="btn-group-sm">@i.ToString()</a>
+        </span>
+    }
+</div>
+
+<table class="table table-hover table-responsive table-condensed table-striped search-odts">
+    <thead>
+
+        <tr>
+            <th>
+                Nº de Referencia
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Fecha de Inicio
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr class="no-results">
+                <td colspan="4" style="text-align: center" class="no-results">
+                    No se encontraron resultados.
+                </td>
+            </tr>
+        }
+
+        @foreach (var item in Model)
+        {
+            string cssClass;
+
+            if (item.Estado != OrdenDeTrabajoEstado.Cerrada)
+            {
+                switch (item.Prioridad)
+                {
+                    case OrdenDeTrabajoPrioridad.Emergencia:
+                        cssClass = "danger";
+                        break;
+
+                    case OrdenDeTrabajoPrioridad.Urgencia:
+                        cssClass = "warning";
+                        break;
+
+                    case OrdenDeTrabajoPrioridad.Normal:
+                        cssClass = "success";
+                        break;
+
+                    default:
+                        cssClass = "";
+                        break;
+                }
+            }
+            else
+            {
+                cssClass = "info";
+            }
+            <tr class="@cssClass">
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroReferencia)
+                </td>
+                <td>
+                    @item.Estado.DisplayName()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                </td>
+                <td class="action-columns">
+                    <a class="btn btn-default btn-xs"
+                        href="@Url.Action("Details", item.WebController(), new { id = item.OrdenDeTrabajoId }, null)"
+                        title="Ver Orden de trabajo">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<strong>Total:&nbsp;</strong>@Model.TotalItemCount registros.

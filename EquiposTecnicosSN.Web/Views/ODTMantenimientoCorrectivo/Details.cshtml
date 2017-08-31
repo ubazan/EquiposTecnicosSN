@@ -1,0 +1,157 @@
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Mantenimiento
+@model OrdenDeTrabajoMantenimientoCorrectivo
+@{
+    ViewBag.Title = "Detalle de Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Correctivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_ODTMCUsersDetails", Model)
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <a href="@Url.Action("Details", "EquiposBase" ,new { id = Model.Equipo.EquipoId })" class="btn btn-default"> Volver</a>
+            @if (OrdenDeTrabajoEstado.Abierta.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
+            {
+                <a href="@Url.Action("EditGastos", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar Gastos</a>
+
+                if (Model.Diagnostico == null)
+                {
+                    <a href="@Url.Action("FillDiagnose", new { id = Model.OrdenDeTrabajoId })" class="btn btn-primary"> Diagnosticar Problema</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("FillDiagnose", new { id = Model.OrdenDeTrabajoId })" class="btn btn-primary"> Modificar diagnostico</a>
+                }
+
+                @*if (Model.Diagnostico != null &&
+                (OrdenDeTrabajoEstado.Abierta.Equals(Model.Estado) ||
+                OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado)))
+                {
+                    <a href="@Url.Action("OrderReplacementService", "SolicitudesRepuestoServicio", new { id = Model.OrdenDeTrabajoId }, null)" class="btn btn-info"> Solicitar Repuesto</a>
+                }*@
+
+
+                if (Model.Diagnostico != null &&
+            (Model.DetalleReparacion == null ||
+            Model.DetalleReparacion.Length == 0))
+                {
+                    <a href="@Url.Action("Close", new { id = Model.OrdenDeTrabajoId})" class="btn btn-primary">Reparar y Cerrar</a>
+                }
+            }
+
+            @*<a class="btn btn-xs btn-list" onclick="verImpresion()" href="#" title="Impresión de OT">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>           
+            </a>
+            <img id='imgToExport' src='~/image/logo-header.png' style='display:none' />
+            <div id="qrCode" hidden>
+                <label id="marca" style="display: none; }">@Html.DisplayFor(model => model.Equipo.InformacionHardware.Marca.Nombre)</label><br />
+                <label id="modelo" style="display:none">@Html.DisplayFor(model => model.Equipo.InformacionHardware.Modelo.Nombre)</label><br />
+                <label id="nroSerie" style="display:none">@Html.DisplayFor(model => model.Equipo.InformacionHardware.NumeroSerie)</label>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_DetailSolicitudRepuestoServicioModal")
+
+@section Scripts {
+
+    <script type="text/javascript" charset="utf-8">
+        var text = "@Model.NumeroReferencia";
+        document.getElementById('qrCode').innerHTML = create_qrcode(text);
+
+        function convertImgToBase64URL(img) {
+            var imgToExport = img;//document.getElementById('imgToExport');
+            var canvas = document.createElement('canvas');
+            canvas.width = imgToExport.width;
+            canvas.height = imgToExport.height;
+            canvas.getContext('2d').drawImage(imgToExport, 0, 0);
+            return canvas.toDataURL('image/png')
+        }
+
+
+        $(function () {
+            //Se visualiza en el detalle de la orden de trabajo(readonly-Estoy en duda si es en solo ese lugar) Jose Gutierrez 23/05/2017
+            $("#@Html.IdFor(model => model.EquipoParado)").bootstrapSwitch('disabled', true);
+
+            $("#@Html.IdFor(model => model.EquipoRemplazo)").bootstrapSwitch('disabled', true);
+
+            //Se visualiza en el detalle de la orden de trabajo(readonly-Estoy en duda si es en solo ese lugar) Jose Gutierrez 24/05/2017
+            $("#@Html.IdFor(model => model.ReparoTercero)").bootstrapSwitch('disabled', true);
+
+            $("#@Html.IdFor(model => model.VerificacionFuncionamiento)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "danger",
+                offText: "No",
+                disabled: "disabled"
+            });
+
+            $("#@Html.IdFor(model => model.Limpieza)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "primary",
+                offText: "No",
+                disabled: "disabled"
+            });
+        });
+        function verImpresion() {
+
+            var doc = {
+                content: [
+                    {
+                        style: 'tableExample',
+                        table: {
+                            headerRows: 2,
+                            body: [
+                                [{ image: convertImgToBase64URL(document.getElementById('imgToExport')), width: 140, height: 30, rowSpan: 2 }, { text: 'Solicitud de Mantenimiento Correctivo \n Orden de Trabajo \n @Model.NumeroReferencia', colSpan: 3, rowSpan: 2, alignment: 'center', style: 'tableHeader' }, {}, {}],
+                                [{}, {}, {}, {}],
+                                [{ text: 'Fecha de inicio: @Html.Raw(Model.FechaInicio)', colSpan: 2 }, {}, { text: 'Marca: @Html.Raw(Model.Equipo.InformacionHardware.Marca.Nombre)', colSpan: 2 }, {}],
+                                [{ text: 'Hospital: @Html.Raw(Model.Equipo.Ubicacion.Nombre)', colSpan: 2 }, {}, { text: 'Modelo: @Html.Raw(Model.Equipo.InformacionHardware.Modelo.Nombre)', colSpan: 2 }, {}],
+                                [{ text: 'Servicio: @Html.Raw(Model.Equipo.Sector.Nombre)', colSpan: 2 }, {}, { text: 'Numero de serie: @Html.Raw(Model.Equipo.InformacionHardware.NumeroSerie)', colSpan: 2 }, {}],
+                                [{ text: 'Tipo de Equipo: @Html.Raw(Model.Equipo.Tipo().DisplayName())', colSpan: 2 }, {}, { text: 'Matricula: @Html.Raw(Model.Equipo.NumeroMatricula)', colSpan: 2 }, {}],
+                                [{ text: 'UMDNS: @Html.Raw(Model.Equipo.UMDNS)', colSpan: 2 }, {}, { text: 'Fecha de Fabricación: @Html.Raw(Model.Equipo.InformacionHardware.AnioFabricacion)', colSpan: 2 }, {}],
+                                [{ text: 'Funcional: @Html.Raw((Model.VerificacionFuncionamiento ? "Sí" : "No"))', colSpan: 2 }, {}, { text: 'Agente: @Html.Raw(Model.UsuarioInicio)', colSpan: 2 }, {}],
+                                [{ text: 'Posee un reemplazo: @Html.Raw((Model.EquipoRemplazo ? "Sí" : "No"))', colSpan: 2 }, {}, { text: 'Telefono: no guardado', colSpan: 2 }, {}],
+                                [{ colSpan: 4, border: [true, true, true, true], text: 'Descripción del problema:\n @Html.Raw(Model.Descripcion)' }, '', '', ''],
+                                [{ colSpan: 2, text: 'Servicio de Electromedicina - HPN\nBuenos Aires 451 - 8300. Neuquén\nTel: (0299) 4490-822/891' }, ' ', { colSpan: 2, image: convertImgToBase64URL(document.getElementById('qrCode').children[0]), width: 120, height: 120, alignment: 'center' }, ''],
+                                [{ colSpan: 4, border: [true, true, true, true], style: 'tableHeader', text: 'Importante: No perder este comprobante. La presentación del mismo es obligatoria para retirar un equipo del servicio y/o consultar su estado.' }, '', '', ''],
+                            ]
+                        }
+                    }
+                ],
+                styles: {
+                    header: {
+                        fontSize: 18,
+                        bold: true,
+                        margin: [0, 0, 0, 10]
+                    },
+                    subheader: {
+                        fontSize: 16,
+                        bold: true,
+                        margin: [0, 10, 0, 5]
+                    },
+                    tableExample: {
+                        margin: [0, 5, 0, 15]
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 13,
+                        color: 'black'
+                    }
+                },
+                defaultStyle: {
+                    // alignment: 'justify'
+                }
+            };
+
+            pdfMake.createPdf(doc).print();
+        }
+    </script>
+}

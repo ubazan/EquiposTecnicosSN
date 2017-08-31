@@ -1,0 +1,63 @@
+﻿@using EquiposTecnicosSN.Web.Models
+@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Equipos
+@model IEnumerable<EquiposTecnicosSN.Entities.Equipos.Equipo>
+
+@{
+    ViewBag.Title = "Equipos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- NUEVO EQUIPO -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">                
+                <a style="text-decoration: none; color: #ffffff; padding: 0px 20px;" data-toggle="collapse" data-parent="#accordion" href="#categoriasEquipos" class="btn btn-primary" role="button"><i class="fa fa-medkit fa-fw"></i> Cargar Nuevo Equipo</a>
+            </div>
+            <div id="categoriasEquipos" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-group btn-group-justified">
+                                <a id="nuevoEquipoEdilicio" href="@Url.Action("Create", "EquipamientosEdilicios")" class="btn btn-primary">@TipoEquipo.Edilicio.DisplayName()</a>
+                                <a id="nuevoEquipoCirugia" href="@Url.Action("Create", "EquiposCirugia")" class="btn btn-primary">@TipoEquipo.Cirugia.DisplayName()</a>
+                                <a id="nuevoEquipoClimatizacion" href="@Url.Action("Create", "EquiposClimatizacion")" class="btn btn-primary">@TipoEquipo.Climatizacion.DisplayName()</a>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a id="nuevoEquipoEndoscopia" href="@Url.Action("Create", "EquiposEndoscopia")" class="btn btn-primary">@TipoEquipo.Endoscopia.DisplayName()</a>
+                                <a id="nuevoEquipoGasesMedicinales" href="@Url.Action("Create", "EquiposGasesMedicinales")" class="btn btn-primary">@TipoEquipo.GasesMedicinales.DisplayName()</a>
+                                <a id="nuevoEquipoImagenes" href="@Url.Action("Create", "EquiposImagenes")" class="btn btn-primary">@TipoEquipo.Imagenes.DisplayName()</a>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a id="nuevoEquipoInformatica" href="@Url.Action("Create", "EquiposInformatica")" class="btn btn-primary">@TipoEquipo.Informatica.DisplayName()</a>
+                                <a id="nuevoEquipoLuces" href="@Url.Action("Create", "EquiposLuces")" class="btn btn-primary">@TipoEquipo.Luces.DisplayName()</a>
+                                <a id="nuevoEquipoMonitoreo" href="@Url.Action("Create", "EquiposMonitoreo")" class="btn btn-primary">@TipoEquipo.Monitoreo.DisplayName()</a>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a id="nuevoEquipoOdontologia" href="@Url.Action("Create", "EquiposOdontologia")" class="btn btn-primary">@TipoEquipo.Odontologia.DisplayName()</a>
+                                <a id="nuevoEquipoOtros" href="@Url.Action("Create", "EquiposOtros")" class="btn btn-primary">@TipoEquipo.Otros.DisplayName()</a>
+                                <a id="nuevoEquipoPruebasDiagnositco" href="@Url.Action("Create", "EquiposPruebasDeDiagnostico")" class="btn btn-primary">@TipoEquipo.PruebasDeDiagnostico.DisplayName()</a>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a id="nuevoEquipoRehabilitacion" href="@Url.Action("Create", "EquiposRehabilitacion")" class="btn btn-primary">@TipoEquipo.Rehabilitacion.DisplayName()</a>
+                                <a id="nuevoEquipoSoporteDeVida" href="@Url.Action("Create", "EquiposSoporteDeVida")" class="btn btn-primary">@TipoEquipo.SoporteDeVida.DisplayName()</a>
+                                <a id="nuevoEquipoTerapeutica" href="@Url.Action("Create", "EquiposTerapeutica")" class="btn btn-primary">@TipoEquipo.Terapeutica.DisplayName()</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUSCAR EQUIPO -->
+@Html.Partial("_SearchEquipos", new SearchEquipoViewModel())
+
+<!-- TRASLADAR EQUIPO -->
+@Html.Partial("_TrasladarEquipoModal")
+
+<!-- GENERAR QR DE EQUIPO -->
+@Html.Partial("_GenerarQRModal")

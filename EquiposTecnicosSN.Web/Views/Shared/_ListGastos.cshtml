@@ -1,0 +1,34 @@
+﻿@model ICollection<EquiposTecnicosSN.Entities.Mantenimiento.GastoOrdenDeTrabajo>
+<div class="row">
+    <div class="col-md-12">
+        <!-- GASTOS -->
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-dollar fa-fw"></i> Gastos</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width:30%;">Concepto</th>
+                                    <th style="width:20%;">Monto ($)</th>
+                                    <th>Proveedor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var gasto in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(item => gasto.Concepto)</td>
+                                        <td>@Html.DisplayFor(item => gasto.Monto)</td>
+                                        <td>@Html.DisplayFor(item => gasto.proveedor.Nombre)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

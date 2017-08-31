@@ -1,0 +1,21 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
+
+@if (Model.Observaciones != null)
+{
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+
+                <label>Observaciones </label>
+                @foreach (var Observacion in Model.Observaciones)
+                {
+
+                        @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+                        @Html.EditorFor(obs => Observacion)
+                    
+                }
+            </div>
+        </div>
+    </div>
+}

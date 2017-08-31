@@ -1,0 +1,48 @@
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@model EquiposTecnicosSN.Web.Models.SearchOdtViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar</div>
+
+            <div class="panel-body">
+                <form id="FormBuscarODT" method="get" data-nqn-ajax="true" action="@Url.Action("SearchODT", "ODTMantenimientoPreventivo")" data-nqn-target="#searchODTResults">
+                    @Html.HiddenFor(model => model.TipoODT, new { @Value = (int)OrdenDeTrabajoTipo.Preventivo })
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nº Referencia</label>
+                                <input class="form-control text-box single-line"
+                                       id="buscarNumeroReferencia"
+                                       name="buscarNumeroReferencia" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Fecha de Inicio Desde</label>
+                                @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Estado</label>
+                                @Html.EnumDropDownListFor(model => model.EstadoODT, "Todos", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="buscarODT" type="submit" value="Buscar" class="btn btn-primary pull-right" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="searchODTResults" class="ajax-result-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

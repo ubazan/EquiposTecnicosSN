@@ -1,0 +1,36 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
+
+@if (Model.Observaciones != null)
+{
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+
+            <label>Observaciones </label>
+                @foreach (var observacion in Model.Observaciones)
+                {
+                    @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+                    @Html.HiddenFor(model => observacion.ObservacionOrdenDeTrabajoId)
+                    @Html.HiddenFor(model => observacion.Fecha)
+                    @Html.HiddenFor(model => observacion.Usuario)
+
+                    if (observacion.Observacion != null)
+                    {
+
+                        <div class="form-group">
+                            <label>Fecha: </label>
+                            @Html.DisplayFor(obs => observacion.Fecha)
+                            <br />
+                            <label>Usuario: </label>
+                            @Html.DisplayFor(obs => observacion.Usuario)
+                            <br />
+                            @Html.DisplayFor(obs => observacion.Observacion)
+
+                        </div>
+                    }
+                }
+        </div>
+    </div>
+</div>
+}

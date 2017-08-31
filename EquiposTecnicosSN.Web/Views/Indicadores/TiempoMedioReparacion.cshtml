@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Tiempo Medio de Reparación";
+}
+
+<div class="row" style="margin-bottom: 20px;">
+
+    <div class="col-md-1">
+        <label style="margin-top: 5px;">Ubicaci&oacute;n</label>
+    </div>
+    <div class="col-md-11">
+        @Html.DropDownList("UbicacionId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+    </div>
+
+</div>
+<div class="row" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseSectores" aria-expanded="true" class=""><i class="fa fa-bar-chart fa-fw"></i> Sectores</a>
+            </div>
+            <div id="collapseSectores" class="panel-collapse collapse" aria-expanded="true">
+                <div class="panel-body">
+                    <input id="seleccionarSectoresToggle" type="button" value="Seleccionar Todos/Ninguno" class="btn btn-default" />
+                    <hr />
+                    <div id="Sectores" class="row">
+                        <div id="loaderSectores" class="col-md-12">
+                            <div class="loader"></div>
+                        </div>
+                        <div id="col-1-sectores" class="col-md-3"></div>
+                        <div id="col-2-sectores" class="col-md-3"></div>
+                        <div id="col-3-sectores" class="col-md-3"></div>
+                        <div id="col-4-sectores" class="col-md-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="margin-bottom: 5px;">
+        <input id="GenerateParetoChart" type="button" value="Generar Gr&aacute;fico de Pareto" class="btn btn-primary" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id='ParetoChart'></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '/Indicadores/GetSectores',
+                dataType: 'json',
+                success: function (response) {
+
+                    var colSize = Math.ceil(response.length / 4);
+                    var sector, html, group;
+
+                    var col1 = response.splice(0, colSize);
+                    group = $("<div class='form-group'>");
+                    for (i in col1) {
+                        sector = col1[i];
+
+                        html = $("<div class='checkbox'>")
+                        html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
+                        group.append(html);
+                    }
+                    $("#col-1-sectores").append(group);
+
+                    var col2 = response.splice(0, colSize)
+                    group = $("<div class='form-group'>");
+                    for (i in col2) {
+                        sector = col2[i];
+
+                        html = $("<div class='checkbox'>")
+                        html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
+                        group.append(html);
+                    }
+                    $("#col-2-sectores").append(group);
+
+                    var col3 = response.splice(0, colSize);
+                    group = $("<div class='form-group'>");
+                    for (i in col3) {
+                        sector = col3[i];
+
+                        html = $("<div class='checkbox'>")
+                        html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
+                        group.append(html);
+                    }
+                    $("#col-3-sectores").append(group);
+
+                    group = $("<div class='form-group'>");
+                    for (i in response) {
+                        sector = response[i];
+
+                        html = $("<div class='checkbox'>")
+                        html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
+                        group.append(html);
+                    }
+                    $("#col-4-sectores").append(group);
+
+                    $("#loaderSectores").remove();
+
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve data.' + ex);
+                }
+            });
+
+        });
+    </script>
+}

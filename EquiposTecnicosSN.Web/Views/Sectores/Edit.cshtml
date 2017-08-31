@@ -1,0 +1,23 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Sector
+
+@{
+    ViewBag.Title = "Editar Sector";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EditorFor(model => model)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </div>
+}

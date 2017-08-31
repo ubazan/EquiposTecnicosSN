@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Gesti&oacute;n de Recursos F&iacute;sicos - Salud Neuqu&eacute;n</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    @Styles.Render("~/bundles/nqn-css")
+    @Styles.Render("~/bundles/bower-components-css")
+    @Scripts.Render("~/bundles/modernizr-js")
+    @Scripts.Render("~/bundles/pdfmake-js")
+    @Scripts.Render("~/bundles/qrcode-js")    
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <img src="@Url.Content("~/Content/images/logo-nqn.png")"
+                     alt="Equipos Tecnicos"
+                     style="max-height: 50px; padding-left: 5px;" />
+
+                <a href="@Url.Action("Index", "Home", new { area = "" })"
+                   class="navbar-brand app-logo">
+                    S.G.R.F. - Salud Neuqu&eacute;n
+                </a>
+            </div>
+
+            @Html.Partial("_LoginPartial")
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                            <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Inicio</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "EquiposBase")"><i class="fa fa-medkit fa-fw"></i> Equipos</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("IndexMantenimientos", "ODTMantenimientoCorrectivo")"><i class="fa fa-file-text fa-fw"></i> Ordenes de Trabajo</a>
+
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores</a>
+                            <ul class="nav nav-second-level">
+                                <li>@Html.ActionLink("Por Ubicación", "PorUbicacion", "Indicadores")</li>
+                                <li>@Html.ActionLink("Por Equipos", "PorUMDNS", "Indicadores")</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href=@Url.Action("Index", "Proveedores")><i class="fa fa-truck fa-fw"></i> Provedores</a>
+                        </li>
+                        @*<li>
+                            <a href="#"><i class="fa fa-gears fa-fw"></i> Repuestos<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>@Html.ActionLink("Listado", "Index", "Repuestos")</li>
+                                <li>@Html.ActionLink("Stocks", "Index", "StockRepuestos")</li>
+                            </ul>
+                        </li>*@
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Administración<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>@Html.ActionLink("Checklists MP", "Index", "ChecklistsMantenimientoPreventivo")</li>
+                                <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
+                                <li>@Html.ActionLink("Sectores", "Index", "Sectores")</li>
+                                <li>@Html.ActionLink("Códigos UMDNS", "Index", "Umdns")</li>
+                                <li>@Html.ActionLink("Fabricantes, Marcas y Modelos", "Index", "Fabricantes")</li>
+                            </ul>
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+
+
+    <div id="page-wrapper">
+        <div class="container body-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">@ViewBag.Title</h3>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery-js")
+    @Scripts.Render("~/bundles/jqueryui-js")
+    @Scripts.Render("~/bundles/jqueryval-js")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/datetimepicker-js")
+    @Scripts.Render("~/bundles/nqn-js")
+    @Scripts.Render("~/bundles/zing-charts-js")
+    @Scripts.Render("~/bundles/bower-components-js")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

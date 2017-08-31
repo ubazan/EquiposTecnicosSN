@@ -1,0 +1,71 @@
+﻿@model EquiposTecnicosSN.Web.Models.SearchEquipoViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar</div>
+
+            <div class="panel-body">
+                <form id="formBuscarEquipo" method="get" data-nqn-ajax="true" action="@Url.Action("SearchEquipos", "EquiposBase")" data-nqn-target="#searchEquipoResults">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Marca</label>
+                                <input class="form-control text-box single-line"
+                                       data-umdns-autocomplete-marca="@Url.Action("AutocompleteMarca", "EquiposBase")"
+                                       id="buscarMarca"
+                                       name="buscarMarca" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Modelo</label>
+
+                                <input class="form-control text-box single-line"
+                                       data-umdns-autocomplete-modelo="@Url.Action("AutocompleteModelo", "EquiposBase")"
+                                       id="buscarModelo"
+                                       name="buscarModelo" type="text" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">N° de Serie</label>
+                                @Html.TextBoxFor(model => model.NumeroSerie, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Tipo de Equipo</label>
+                                @Html.EnumDropDownListFor(model => model.SearchTipoEquipo, "Todos", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UbicacionId, "Ubicación", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("UbicacionId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SectorId, "Sector", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("SectorId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            @*<div class="form-group">
+                                @Html.LabelFor(model => model.NumeroMatricula, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.NumeroMatricula, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                            </div>*@
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="buscarEquipo" type="submit" value="Buscar" class="btn btn-primary pull-right" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="searchEquipoResults" class="ajax-result-list">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

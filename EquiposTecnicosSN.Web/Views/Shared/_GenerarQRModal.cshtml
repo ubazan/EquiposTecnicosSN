@@ -1,0 +1,23 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="modalGenerarQR" tabindex="-1" role="dialog" aria-labelledby="GenerarQR">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="FormGenerarQR" method="post" data-nqn-ajax="true" action="@Url.Action("GenerarQR", "EquiposBase")"
+                  data-nqn-target="#generarQR" data-nqn-target-row="true" data-nqn-modal="#modalGenerarQR">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Código QR del Equipo</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+
+                <div id="qr" onclick="generarPDF()"></div>
+                <div class="modal-footer">
+                    <span class="text-justify">Click en el código para Imprimir</span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

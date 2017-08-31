@@ -1,0 +1,32 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Traslado
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.HiddenFor(model => model.EquipoId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.UbicacionOrigenId, "Ubicación de origen", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("UbicacionOrigenId", null, htmlAttributes: new { @class = "form-control  ddl-traslado-origen", disabled = "disabled", data_nqn_action = Url.Action("GetUbicacionEquipo", "Traslados") })
+            @Html.HiddenFor(model => model.UbicacionOrigenId)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.LabelFor(model => model.UbicacionDestinoId, "Ubicación de destino", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("UbicacionDestinoId", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="trasladoResult" class="col-md-12">
+
+    </div>
+</div>
+
+
+
+
+
+
+

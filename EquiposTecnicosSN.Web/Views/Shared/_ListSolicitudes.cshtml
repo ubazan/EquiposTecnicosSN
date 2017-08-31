@@ -1,0 +1,74 @@
+﻿@model ICollection<EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- REPUESTOS-->
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-gears fa-fw"></i> Repuestos</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Cantidad</th>
+                                    <th>Repuesto</th>
+                                    <th>Proveedor</th>
+                                    <th>Comentarios</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model == null)
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            No se registraron solicitudes.
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var sr in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(item => sr.Repuesto.Codigo)</td>
+                                            <td>@(sr.CantidadRepuesto != 0 ? sr.CantidadRepuesto.ToString() : "")</td>
+                                            <td>@(sr.Repuesto != null ? sr.Repuesto.Nombre : "")</td>
+                                            <td>@(sr.Proveedor != null ? sr.Proveedor.Nombre : "")</td>
+                                            <td>@Html.DisplayFor(item => sr.Comentarios)</td>
+                                            <td class="action-columns">
+                                                <a class="btn btn-default btn-xs"
+                                                   data-toggle="modal" data-target="#modalSolicitudRepuestoServicioEquipo"
+                                                   data-solicitud-id="@sr.SolicitudRepuestoServicioId"
+                                                   data-nqn-action="@Url.Action("DetailsSolicitud", "SolicitudesRepuestoServicio")"
+                                                   title="Ver Detalles">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                                @if (sr.FechaCierre == null)
+                                                {
+                                                    <a class="btn btn-default btn-xs"
+                                                       data-action="close-solicitud"
+                                                       data-solicitud-id="@sr.SolicitudRepuestoServicioId"
+                                                       data-toggle="tooltip"
+                                                       data-nqn-action="@Url.Action("Close", "SolicitudesRepuestoServicio")"
+                                                       title="Cerrar Orden">
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                    </a>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model IPagedList<EquiposTecnicosSN.Entities.Mantenimiento.StockRepuesto>
+
+@Html.ActionLink("Nuevo Stock", "Create", null, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create pull-left" })
+<div class="pagedList" data-nqn-target="#stockRepuestosList">
+    @Html.PagedListPager(Model, page => Url.Action("Index", "StockRepuestos", new { page = page }), PagedListRenderOptions.Classic)
+</div>
+<table class="table table-hover table-responsive table-condensed table-striped">
+    <thead>
+
+        <tr>
+            <th>
+                C&oacute;digo Repuesto
+            </th>
+            <th>
+                Nombre Repuesto
+            </th>
+            <th>
+                Cantidad Disponible
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" style="text-align: center">
+                    No se encontraron resultados.
+                </td>
+            </tr>
+        }
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Repuesto.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Repuesto.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantidadDisponible)
+                </td>
+                <td class="action-columns">
+                    <a class="btn btn-default btn-xs"
+                       href="@Url.Action("Edit", new { id = item.StockRepuestoId })"
+                       title="Editar Stock">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+
+                    <a class="btn btn-default btn-xs"
+                       href="@Url.Action("Details", new { id = item.StockRepuestoId })"
+                       title="Ver Stock">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-default btn-xs"
+                       href="@Url.Action("Delete", new { id = item.StockRepuestoId })"
+                       title="Eliminar Stock">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+

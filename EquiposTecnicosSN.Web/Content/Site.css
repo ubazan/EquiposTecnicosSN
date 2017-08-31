@@ -1,0 +1,251 @@
+﻿body {
+    /*padding-top: 50px;*/
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+.btn-table-create {
+    margin-bottom: 15px;
+}
+
+.app-logo {
+    float: none; 
+    padding-left: 5px;
+    vertical-align: sub;
+}
+
+.switch-label {
+    margin-right: 20px;
+}
+
+
+/* Outline Buttons */
+.btn-success-outline {
+    color: #5cb85c;
+    background-color: transparent;
+    background-image: none;
+    border-color: #5cb85c;
+}
+/* Success */
+.btn-success-outline:hover {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+.btn-success-outline.active {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+/* Warning */
+.btn-warning-outline {
+    color: #f0ad4e;
+    background-color: transparent;
+    background-image: none;
+    border-color: #f0ad4e;
+}
+
+.btn-warning-outline:hover {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+
+.btn-warning-outline.active {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+/* Danger*/
+.btn-danger-outline {
+    color: #d9534f;
+    background-color: transparent;
+    background-image: none;
+    border-color: #d9534f;
+}
+
+.btn-danger-outline:hover {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+.btn-danger-outline.active {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+/* Loader */
+.loader {
+  height: 4px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #ddd;
+}
+.loader:before{
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 4px;
+  background-color: #2980b9;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+/* */
+.btn-list {
+    margin: 2px 2px 2px 2px;
+}
+.pagedList {
+    text-align: center;
+}
+
+.action-columns {
+    text-align: right;
+}
+
+.ajax-result-list {
+    margin-top: 10px;
+}
+
+.centered-column {
+    text-align: center;
+}
+
+a, a:active, a:focus {
+    outline: none;
+}
+
+.btn, .btn:active, .btn:focus {
+    outline: none;
+}
+/*
+
+@media all and (max-width:768px) {
+    tr {
+        display: table;  width:100%;    
+    }
+    td {
+        display: table-row; 
+    }
+}
+
+*/
+@media
+	only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+		/* Force table to not be like tables anymore */
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+		tr { border: 1px solid #ccc; }
+
+		td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee;
+			position: relative;
+			padding-left: 50% !important;
+		}
+
+        td.no-results {
+			/* Behave  like a "row" */
+			padding-left: 0 !important;
+		}
+        .no-results td:nth-of-type(1):before {
+			/* Behave  like a "row" */
+			{ content: "" }
+		}
+
+		td:before {
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			left: 6px;
+			width: 45%;
+			padding-right: 10px;
+			white-space: nowrap;
+            font-weight: bold;
+		}
+
+		/*
+		Labels Search Equipos
+		*/
+        .search-equipos td:nth-of-type(1) {
+            padding-left: 5px !important;
+        }
+		.search-equipos td:nth-of-type(1):before { content: ""; }
+		.search-equipos td:nth-of-type(2):before { content: "Tipo"; }
+		.search-equipos td:nth-of-type(3):before { content: "Marca"; }
+		.search-equipos td:nth-of-type(4):before { content: "Modelo"; }
+		.search-equipos td:nth-of-type(5):before { content: "Estado"; }
+		.search-equipos td:nth-of-type(6):before { content: "Ubicación"; }
+
+        /*
+		Labels Search Equipos
+		*/
+        .search-odts td:nth-of-type(1) {
+            padding-left: 5px !important;
+        }
+		.search-odts td:nth-of-type(1):before { content: ""; }
+		.search-odts td:nth-of-type(2):before { content: "Estado"; }
+		.search-odts td:nth-of-type(3):before { content: "Fecha de Inicio"; }
+		
+	}
+
+	/* Smartphones (portrait and landscape) ----------- */
+	@media only screen
+	and (min-device-width : 320px)
+	and (max-device-width : 480px) {
+		body {
+			padding: 0;
+			margin: 0;
+			width: 320px; }
+		}
+
+	/* iPads (portrait and landscape) ----------- */
+	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+		body {
+			width: 495px;
+		}
+	}

@@ -1,0 +1,34 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.ChecklistMantenimientoPreventivo
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "ChecklistsMantenimientoPreventivo", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EditorFor(model => model)
+        </div>
+    </div>
+
+    <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+    <input type="submit" value="Guardar" class="btn btn-primary" />
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#ChecklistFile").on("change", function (ev) {
+                var fileName = this.files.item(0).name;
+                var checklistName = fileName.substring(0, fileName.lastIndexOf("."));
+                $("#@Html.IdFor(model => model.Nombre)").val(checklistName);
+            });
+
+            $("#ChecklistFile").filestyle({ buttonText: "Seleccionar archivo", placeholder: "Seleccione un archivo para modificar el actual" });
+        });
+    </script>
+}

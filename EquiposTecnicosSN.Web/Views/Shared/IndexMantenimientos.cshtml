@@ -1,0 +1,26 @@
+﻿@model EquiposTecnicosSN.Web.Models.ODTIndexModel
+
+@{
+    ViewBag.Title = "Ordenes de trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+        <a href="#mcs" aria-controls="mcs" role="tab" data-toggle="tab">Mantenimientos Correctivos</a>
+    </li>
+    <li role="presentation">
+        <a href="#mps" aria-controls="mps" role="tab" data-toggle="tab">Mantenimientos Preveentivos</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="mcs">
+        <!-- BUSCAR ODT -->
+        @Html.Partial("_IndexMC", Model.mcViewModel)
+    </div>
+    <div role="tabpanel" class="tab-pane" id="mps">
+        <!-- BUSCAR EQUIPO -->
+        @Html.Partial("_IndexMP", Model.mpViewModel)
+    </div>
+</div>

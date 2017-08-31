@@ -1,0 +1,42 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-users fa-fw"></i>
+                <a style="text-decoration:none;" data-toggle="collapse" data-parent="#accordion" href="#usuariosODT">Usuarios Involucrados</a>
+
+            </div>
+            <div id="usuariosODT" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-3"><label>Usuario de Inicio</label></div>
+                        <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioInicio)</div>
+                    </div>
+                    @if (Model.UsuarioDiagnostico != null)
+                    {
+                        <div class="row">
+                            <div class="col-lg-3"><label>Usuario de Diagn&oacute;stico</label></div>
+                            <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioDiagnostico)</div>
+                        </div>
+                    }
+                    @if (Model.UsuarioReparacion != null)
+                    {
+                        <div class="row">
+                            <div class="col-lg-3"><label>Usuario de Reparaci&oacute;n</label></div>
+                            <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioReparacion)</div>
+                        </div>
+                    }
+                    @if (Model.UsuarioCierre != null)
+                    {
+                        <div class="row">
+                            <div class="col-lg-3"><label>Usuario de Cierre</label></div>
+                            <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioCierre)</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

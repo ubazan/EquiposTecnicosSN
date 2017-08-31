@@ -1,0 +1,22 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.EquipoOtro
+
+@{
+    ViewBag.Title = "Nuevo Equipo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.InformacionHardware)
+            @Html.EditorFor(model => model)
+            @Html.EditorFor(model => model.InformacionComercial)
+            @Html.Partial("_NotasEquipo", Model)
+        </div>
+    </div>
+    
+    <a href="@Url.Action("Index", "EquiposBase")" class="btn btn-default"> Volver</a>
+    <input type="submit" value="Guardar" class="btn btn-primary" />
+}

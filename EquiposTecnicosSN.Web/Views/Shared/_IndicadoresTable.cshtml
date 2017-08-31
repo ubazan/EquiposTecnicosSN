@@ -1,0 +1,25 @@
+﻿@model EquiposTecnicosSN.Web.Models.IndicadoresEquipoViewModel
+
+<hr />
+<table style="width: 100%;">
+    <thead>
+        <tr>
+            <th style="width:70%">Indicador</th>
+            <th style="text-align: center;">Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width:70%">Tiempo de Indisponibilidad</td>
+            <td style="text-align: center;">@Html.DisplayFor(model => model.TiempoIndisponibilidad)&nbsp;%</td>
+        </tr>
+        <tr>
+            <td style="width:70%">TMEF (d&iacute;as)</td>
+            <td style="text-align: center;">@Html.DisplayFor(model => model.TiempoMedioEntreFallas)&nbsp;%</td>
+        </tr>
+        <tr>
+            <td style="width:70%">TMPR (minutos)</td>
+            <td style="text-align: center;">@Html.DisplayFor(model => model.TiempoMedioReparacion)&nbsp;%</td>
+        </tr>
+    </tbody>
+</table>

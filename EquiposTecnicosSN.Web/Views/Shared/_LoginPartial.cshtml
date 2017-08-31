@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <i class="fa fa-user fa-fw"></i> @ViewBag.CurrentIdentity  
+        </li>
+        <li>
+            <a href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out fa-fw"></i></a> 
+        </li>
+    </ul>

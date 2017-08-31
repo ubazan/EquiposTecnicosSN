@@ -1,0 +1,213 @@
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Mantenimiento
+@model OrdenDeTrabajoMantenimientoCorrectivo
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-wrench fa-fw"></i> <b>La orden de trabajo se encuentra <span id="ordenEstado">@Model.Estado.DisplayName()</span></b>
+                <a class="btn btn-sm btn-default" onclick="verImpresion()" href="#" title="Impresión de OT" style="float: right">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="panel-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.NumeroReferencia)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.NumeroReferencia)
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Equipo)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.ActionLink(Model.Equipo.NombreCompleto, "Details", "EquiposBase", new { id = Model.Equipo.EquipoId }, null)
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label switch-label">¿El equipo se encuentra parado?</label>
+                            @Html.EditorFor(model => model.EquipoParado, new { @class = "form-control bootstrap-switch-readonly" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label switch-label">¿El equipo posee un reemplazo?</label>
+                            @Html.EditorFor(model => model.EquipoRemplazo, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label switch-label">¿Se envio a reparar a un tercero?</label>
+                            @Html.EditorFor(model => model.ReparoTercero, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.FechaInicio)
+                                @Html.HiddenFor(model => model.FechaInicio)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.FechaInicio)
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                @if (Model.FechaCierre != null)
+                                {
+                                    @Html.DisplayNameFor(model => model.FechaCierre)
+                                    @Html.HiddenFor(model => model.FechaCierre)
+                                }
+                            </label>
+                            <p class="form-control-static">
+                                @if (Model.FechaCierre != null)
+                                {
+                                    @Html.DisplayFor(model => model.FechaCierre)
+                                }
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label switch-label">Prioridad</label>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Prioridad) ? " active" : "")">
+                                    @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
+                                </label>
+                                <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Prioridad) ? " active" : "")">
+                                    @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
+                                </label>
+                                <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Prioridad) ? " active" : "")">
+                                    @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </label>
+                        <p class="form-control-static">
+                            @Html.DisplayFor(model => model.Descripcion)
+                        </p>
+                    </div>
+                </div>
+                @if (Model.Diagnostico != null)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Diagnostico)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Diagnostico)
+                            </p>
+                        </div>
+                    </div>
+                }
+                @if (Model.DetalleReparacion != null)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>
+                                @Html.DisplayNameFor(model => model.DetalleReparacion)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.DetalleReparacion)
+                            </p>
+
+                        </div>
+                    </div>
+                }
+
+                @if (Model.CausaRaiz != null)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>
+                                @Html.DisplayNameFor(model => model.CausaRaiz)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.CausaRaiz)
+                            </p>
+
+                        </div>
+                    </div>
+                }
+
+                @*
+
+                    if (Model.Observaciones != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.LabelFor(model => model.Observaciones)
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Observaciones)
+                                </p>
+                            </div>
+                        </div>
+                    }
+                *@
+                @Html.Partial("_ListObservaciones", Model)
+
+                @if (Model.FechaCierre != null)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label switch-label">El equipo queda funcionando</label>
+                                @Html.EditorFor(model => model.VerificacionFuncionamiento, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
+                                @Html.EditorFor(model => model.Limpieza, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<img id='imgToExport' src='~/image/logo-header.png' style='display:none' />
+<div id="qrCode" hidden>
+    <label id="marca" style="display: none; }">@Html.DisplayFor(model => model.Equipo.InformacionHardware.Marca.Nombre)</label><br />
+    <label id="modelo" style="display:none">@Html.DisplayFor(model => model.Equipo.InformacionHardware.Modelo.Nombre)</label><br />
+    <label id="nroSerie" style="display:none">@Html.DisplayFor(model => model.Equipo.InformacionHardware.NumeroSerie)</label>
+</div>
+
+
+
+@if (Model.Gastos != null && Model.Gastos.Count != 0)
+{
+    @Html.Partial("_ListGastos", Model.Gastos)
+}
+
+@if (Model.SolicitudesRespuestos != null && Model.SolicitudesRespuestos.Count > 0)
+{
+    @Html.Partial("_ListSolicitudes", Model.SolicitudesRespuestos)
+}

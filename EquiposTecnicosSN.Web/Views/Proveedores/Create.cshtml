@@ -1,0 +1,22 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Proveedor
+
+@{
+    ViewBag.Title = "Nuevo Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    
+    
+    @Html.EditorFor(model => model)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

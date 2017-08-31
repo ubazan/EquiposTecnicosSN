@@ -1,0 +1,51 @@
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@using EquiposTecnicosSN.Web.CustomExtensions
+@model OrdenDeTrabajoMantenimientoPreventivo
+
+@{
+    ViewBag.Title = "Detalle de Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Preventivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("_ODTMPUsersDetails", Model)
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <a href="@Url.Action("Details", "EquiposBase" ,new { id = Model.Equipo.EquipoId })" class="btn btn-default"> Volver</a>
+
+            @if (OrdenDeTrabajoEstado.Abierta.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
+            {
+                <a href="@Url.Action("Edit", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar</a>
+                <a href="@Url.Action("EditGastos", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar Gastos</a>
+                <a href="@Url.Action("OrderReplacementService", "SolicitudesRepuestoServicio", new { id = Model.OrdenDeTrabajoId }, null)" class="btn btn-info"> Solicitar Repuesto</a>
+                <a href="@Url.Action("Close", new { id = Model.OrdenDeTrabajoId})" class="btn btn-primary">Cerrar Orden</a>
+            }
+
+        </div>
+    </div>
+</div>
+@Html.Partial("_DetailSolicitudRepuestoServicioModal")
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#@Html.IdFor(model  => model.ChecklistCompleto)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offText: "No",
+                offColor: "danger",
+                disabled: "disabled"
+            });
+
+        });
+    </script>
+}

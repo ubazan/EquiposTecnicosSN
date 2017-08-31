@@ -1,0 +1,34 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Repuesto.Codigo, htmlAttributes: new { @class = "control-label" })
+            <input class="form-control text-box single-line"
+                   data-autocomplete-codigo-repuesto="@Url.Action("AutocompleteCodigoRepuesto", "Repuestos")"
+                   data-nqn-check-stock="@Url.Action("CheckStockRepuesto", "Repuestos")"
+                   data-val="false"
+                   id="@Html.IdFor(model => model.Repuesto.Codigo)"
+                   name="@Html.NameFor(model => model.Repuesto.Codigo)" type="text" value="@Model.Repuesto.Codigo">
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CantidadRepuesto, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.CantidadRepuesto, new { htmlAttributes = new { @class = "form-control", disabled= "disabled", data_val = "false", data_stock_repuesto = Url.Action("CheckStockRepuesto") } })            
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Repuesto.Nombre, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Repuesto.Nombre, new { htmlAttributes = new { @class = "form-control", data_val = "false", data_stock_repuesto = Url.Action("CheckStockRepuesto") } })            
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="NotificacionStock"></div>
+    </div>
+</div>

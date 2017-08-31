@@ -1,0 +1,166 @@
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@using EquiposTecnicosSN.Web.CustomExtensions
+@model EquiposTecnicosSN.Web.Models.MPViewModel
+
+@{
+    ViewBag.Title = "Cerrar Orden de trabajo Nº " + Model.Odt.NumeroReferencia;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Close", "ODTMantenimientoPreventivo", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-calendar fa-fw"></i> <b>La orden de trabajo se encuentra @Model.Odt.Estado.DisplayName()</b></div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Odt.OrdenDeTrabajoId)
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Odt.NumeroReferencia)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Odt.NumeroReferencia)
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Odt.Equipo)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.ActionLink(Model.Odt.Equipo.NombreCompleto, "Details", "EquiposBase", new { id = Model.Odt.Equipo.EquipoId }, null)
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Odt.Checklist)
+                                <p class="form-control-static">
+                                    @Html.ActionLink(Model.Odt.Checklist.Nombre, "Download", "ChecklistsMantenimientoPreventivo", new { id = Model.Odt.ChecklistId }, null)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Odt.FechaInicio)
+                                    @Html.HiddenFor(model => model.Odt.FechaInicio)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Odt.FechaInicio)
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+
+                                @if (Model.Odt.FechaCierre != null)
+                                {
+                                    @Html.LabelFor(model => model.Odt.FechaCierre)
+                                    @Html.HiddenFor(model => model.Odt.FechaCierre)
+
+                                }
+                                else
+                                {
+                                    <label>&nbsp;</label>
+                                }
+
+                                <p class="form-control-static">
+                                    @if (Model.Odt.FechaCierre != null)
+                                    {
+                                        @Html.DisplayFor(model => model.Odt.FechaCierre)
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("&nbsp")
+                                    }
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label switch-label">Prioridad</label>
+                                <div class="form-control-static" style="padding-top: 0;">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Odt.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
+                                        </label>
+                                        <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Odt.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
+                                        </label>
+                                        <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Odt.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Partial("_ListObservaciones", Model.Odt)
+                    @Html.Partial("_AddObservaciones", Model)
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label switch-label">Checklist Completo</label>
+                                @Html.EditorFor(model => model.Odt.ChecklistCompleto, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="ChecklistFile">Subir una copia del checklist completo</label>
+                                <input type="file" id="@Html.IdFor(model => model.ChecklistCompletoFile)" name="@Html.NameFor(model => model.ChecklistCompletoFile)" accept="application/pdf, image/jpeg, image/png" 
+                                       data-val="true"
+                                       data-val-required="Debe adjuntar una foto o documento PDF del checklist completo."/>
+                                @Html.ValidationMessageFor(model => Model.ChecklistCompletoFile, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@Html.Partial("_EditGastos", Model.Odt.Gastos)
+@Html.Partial("_ListSolicitudes", Model.Odt.SolicitudesRespuestos)
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <input type="submit" value="Cerrar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Partial("_DetailSolicitudRepuestoServicioModal")
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#@Html.IdFor(model  => model.Odt.ChecklistCompleto)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offText: "No",
+                offColor: "danger"
+            });
+
+            $("#@Html.IdFor(model => model.ChecklistCompletoFile)").filestyle({ buttonText: "Seleccionar archivo" });
+        });
+    </script>
+}
+
+
+
+
+
+

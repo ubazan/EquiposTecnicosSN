@@ -1,0 +1,61 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.InformacionHardware
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-gears fa-fw"></i> Información del Equipo</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Fabricante)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Fabricante.Nombre)
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Modelo)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Modelo.Nombre)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Marca)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Marca.Nombre)
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.NumeroSerie)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.NumeroSerie)
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.AnioFabricacion)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.AnioFabricacion)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

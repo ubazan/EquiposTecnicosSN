@@ -1,0 +1,130 @@
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
+@{
+    ViewBag.Title = "Editar Gastos de Orden de Trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> @ViewBag.Title</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.NumeroReferencia)
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Equipo)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.FechaInicio)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.FechaInicio)
+                                </p>
+                            </div>
+                            
+
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Descripcion)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Descripcion)
+                            </p>
+                        </div>
+                    </div>
+                    @if (Model.Diagnostico != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Diagnostico)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Diagnostico)
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.DetalleReparacion != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.DetalleReparacion)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.DetalleReparacion)
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.CausaRaiz != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.CausaRaiz)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.CausaRaiz)
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_EditGastos", Model.Gastos)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <a href="@Url.Action("Details", Model.WebController(), new { id = Model.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
+                <input type="submit" value="Guardar Gastos" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+}
+

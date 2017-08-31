@@ -1,0 +1,15 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Repuesto
+
+@{
+    ViewBag.Title = "Detalle de Repuesto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+
+<a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+<a href="@Url.Action("Edit", new { id = Model.RepuestoId })" class="btn btn-warning"> Editar</a>

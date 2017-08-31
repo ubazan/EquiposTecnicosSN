@@ -1,0 +1,57 @@
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@model IPagedList<EquiposTecnicosSN.Web.Models.IndicadoresEquipoPorUbicacionViewModel>
+<div class="pagedList" data-nqn-target="#searchEquipoResults" data-nqn-form="#formBuscarEquipo">
+    @Html.PagedListPager(Model, page => Url.Action("IndicadoresPorUMDNS", "Indicadores", new { page = page }), PagedListRenderOptions.Classic)
+</div>
+<table class="table table-striped table-hover table-responsive table-condensed">
+    <thead>
+
+        <tr>
+            <th>
+                Ubicaci&oacute;n
+            </th>
+            <th>
+                Sector
+            </th>
+            <th class="centered-column">
+                TMI (%)
+            </th>
+            <th class="centered-column">
+                TMPR (minutos)
+            </th>
+            <th class="centered-column">
+                TMEF (d&iacute;as)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6" style="text-align: center">
+                    No se encontraron equipos.
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UbicacionEquipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SectorEquipo)
+                </td>
+                <td class="centered-column">
+                    @Html.DisplayFor(modelItem => item.TiempoIndisponibilidad)
+                </td>
+                <td class="centered-column">
+                    @Html.DisplayFor(modelItem => item.TiempoMedioReparacion)
+                </td>
+                <td class="centered-column">
+                    @Html.DisplayFor(modelItem => item.TiempoMedioEntreFallas)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

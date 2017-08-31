@@ -1,0 +1,43 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.EquipoLuces
+
+@{
+    ViewBag.Title = "Equipo de Soporte de Luces";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+
+@if (Model.InformacionHardware != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model.InformacionHardware)
+        </div>
+    </div>
+}
+
+@if (Model.InformacionComercial != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model.InformacionComercial)
+        </div>
+    </div>
+}
+
+@Html.Partial("_MantenimientosEquipo", Model)
+
+@Html.Partial("_TrasladosEquipoModal", Model.Traslados)
+
+@using (Html.BeginForm())
+{
+    
+
+    <div class="form-actions no-color">
+        <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+        <input type="submit" value="Borrar" class="btn btn-danger" />
+    </div>
+}
