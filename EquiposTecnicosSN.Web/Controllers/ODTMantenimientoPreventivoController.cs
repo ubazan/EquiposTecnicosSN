@@ -124,12 +124,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Close(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             try
             {
