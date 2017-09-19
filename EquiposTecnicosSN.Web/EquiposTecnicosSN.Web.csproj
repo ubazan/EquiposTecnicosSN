@@ -1245,6 +1245,7 @@
     <Content Include="Content\bower_components\raphael\bower.json" />
     <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <None Include="Properties\PublishProfiles\neuquen.pubxml" />
+    <None Include="Properties\PublishProfiles\produccion_Jose.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\custom\pdf\pdfmake.js" />
     <Content Include="Scripts\custom\pdf\pdfmake.min.js" />
