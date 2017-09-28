@@ -83,6 +83,14 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// </summary>
         public bool ReparoTercero { get; set; }
 
+        /// <summary> Ulises Bazán 27/09/2017
+        /// Gets or sets a value indicating whether [equipo entregado].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [equipo entregado]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EquipoEntregado { get; set; }
+
         /// <summary>Jose Gutierrez 24/05/2017
         /// Fecha en que un "tercero" comenzo con la reparacion del equipo
         /// </summary>
@@ -90,6 +98,12 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime? FechaInicioTercero { get; set; }
 
+        /// <summary> Ulises Bazán 27/06/2017
+        /// Gets or sets the fecha entrega.
+        /// </summary>
+        [DisplayName("Fecha Entrega Equipo")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        public DateTime? FechaEntrega { get; set; }
 
         /// <summary> Jose Gutierrez 29/05/2017
         /// Solo agrego el ProveedorId para el Get, asi muestra el proveedor asociado a la ODT       

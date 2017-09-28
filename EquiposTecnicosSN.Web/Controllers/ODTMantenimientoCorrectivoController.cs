@@ -179,17 +179,32 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.CausaRaiz = vm.Odt.CausaRaiz;
                 orden.Limpieza = vm.Odt.Limpieza;
                 orden.VerificacionFuncionamiento = vm.Odt.VerificacionFuncionamiento;
-
-                orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
-                orden.FechaCierre = DateTime.Now;
                 orden.UsuarioReparacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
-                orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+                orden.EquipoEntregado = vm.Odt.EquipoEntregado;
+                if (orden.EquipoEntregado)
+                {
+                    orden.Estado = OrdenDeTrabajoEstado.Cerrada;
+                    orden.FechaCierre = DateTime.Now;
+                    orden.FechaEntrega = DateTime.Now;
+                    orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
 
-                //estado del equipo
-                var equipo = db.Equipos.Find(orden.EquipoId);
-                equipo.Estado = (vm.Odt.VerificacionFuncionamiento ? EstadoDeEquipo.Funcional : EstadoDeEquipo.NoFuncionalRequiereReparacion);
-                db.Entry(equipo).State = EntityState.Modified;
+                    //estado del equipo
+                    var equipo = db.Equipos.Find(orden.EquipoId);
+                    equipo.Estado = (vm.Odt.VerificacionFuncionamiento ? EstadoDeEquipo.Funcional : EstadoDeEquipo.NoFuncionalRequiereReparacion);
+                    db.Entry(equipo).State = EntityState.Modified;
+                    //solicitudes
+                    CloseSolicitudesRepuestos(orden);
+                }
+                else
+                {
+                    orden.Estado = OrdenDeTrabajoEstado.Abierta;
+                    //estado del equipo
+                    var equipo = db.Equipos.Find(orden.EquipoId);
+                    equipo.Estado = (vm.Odt.VerificacionFuncionamiento ? EstadoDeEquipo.Funcional : EstadoDeEquipo.NoFuncionalRequiereReparacion);
+                    db.Entry(equipo).State = EntityState.Modified;
+
+                }
 
                 //gastos
                 SaveGastos(gastos, orden.OrdenDeTrabajoId);
@@ -197,8 +212,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 //observaciones
                 SaveNuevaObservacion(vm.NuevaObservacion, orden);
 
-                //solicitudes
-                CloseSolicitudesRepuestos(orden);
+                
 
                 db.Entry(orden).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -207,6 +221,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             return View(vm);
         }
+
 
         // GET: OrdenesDeTrabajo/EditGastos/id
         [HttpGet]

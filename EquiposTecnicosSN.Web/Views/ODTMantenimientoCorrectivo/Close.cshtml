@@ -123,6 +123,10 @@
                                 <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
                                 @Html.EditorFor(model => Model.Odt.Limpieza, new { @class = "form-control" })
                             </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">Se libera el equipo</label>
+                                @Html.EditorFor(model => Model.Odt.EquipoEntregado, new { @class = "form-control" })
+                            </div>
                         </div>
                         <div class="col-md-6">
 
@@ -140,7 +144,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <a href="@Url.Action("Details", Model.Odt.WebController(), new { id = Model.Odt.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
-                <input type="submit" value="Cerrar Orden de Trabajo" class="btn btn-primary" />
+                <input type="submit" id="cerrar_reparar" value="Guardar Reparación" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -171,6 +175,24 @@
                 offColor: "primary",
                 offText: "No"
             });
+
+            $("#@Html.IdFor(model  => Model.Odt.EquipoEntregado)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "primary",
+                offText: "No"
+            });
+
+
+            $("#@Html.IdFor(model => Model.Odt.EquipoEntregado)").on("switchChange.bootstrapSwitch", function (event, state) {
+                if (state) {
+                    $("#cerrar_reparar").prop("value", "Cerrar OT");
+                }
+                else {
+                    $("#cerrar_reparar").prop("value", "Guardar Reparación");
+                }
+            });
+
         });
     </script>
 }

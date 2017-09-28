@@ -1,10 +1,8 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
 @model OrdenDeTrabajoMantenimientoCorrectivo
-
 <div class="row">
     <div class="col-md-12">
-
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-wrench fa-fw"></i> <b>La orden de trabajo se encuentra <span id="ordenEstado">@Model.Estado.DisplayName()</span></b>
@@ -15,7 +13,6 @@
             <div class="panel-body">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.OrdenDeTrabajoId)
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -26,7 +23,6 @@
                                 @Html.DisplayFor(model => model.NumeroReferencia)
                             </p>
                         </div>
-
                         <div class="form-group">
                             <label>
                                 @Html.DisplayNameFor(model => model.Equipo)
@@ -48,7 +44,6 @@
                             @Html.EditorFor(model => model.ReparoTercero, new { @class = "form-control" })
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>
@@ -59,7 +54,6 @@
                                 @Html.DisplayFor(model => model.FechaInicio)
                             </p>
                         </div>
-
                         <div class="form-group">
                             <label>
                                 @if (Model.FechaCierre != null)
@@ -75,7 +69,6 @@
                                 }
                             </p>
                         </div>
-
                         <div class="form-group">
                             <label class="control-label switch-label">Prioridad</label>
                             <div class="btn-group" data-toggle="buttons">
@@ -90,7 +83,6 @@
                                 </label>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <hr />
@@ -129,11 +121,9 @@
                             <p class="form-control-static">
                                 @Html.DisplayFor(model => model.DetalleReparacion)
                             </p>
-
                         </div>
                     </div>
                 }
-
                 @if (Model.CausaRaiz != null)
                 {
                     <hr />
@@ -145,48 +135,39 @@
                             <p class="form-control-static">
                                 @Html.DisplayFor(model => model.CausaRaiz)
                             </p>
-
                         </div>
                     </div>
                 }
-
-                @*
-
-                    if (Model.Observaciones != null)
-                    {
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                @Html.LabelFor(model => model.Observaciones)
-                                <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Observaciones)
-                                </p>
-                            </div>
-                        </div>
-                    }
-                *@
                 @Html.Partial("_ListObservaciones", Model)
-
                 @if (Model.FechaCierre != null)
                 {
                     <hr />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label switch-label">El equipo queda funcionando</label>
-                                @Html.EditorFor(model => model.VerificacionFuncionamiento, new { @class = "form-control" })
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label switch-label">El equipo queda funcionando</label>
+                                        @Html.EditorFor(model => model.VerificacionFuncionamiento, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
+                                        @Html.EditorFor(model => model.Limpieza, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label switch-label">Equipo entregado</label>
+                                        @Html.EditorFor(model => model.EquipoEntregado, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>
+                                            @Html.DisplayNameFor(model => model.FechaEntrega)
+                                            @Html.HiddenFor(model => model.FechaEntrega)
+                                        </label>
+                                            @Html.DisplayFor(model => model.FechaCierre)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
-                                @Html.EditorFor(model => model.Limpieza, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-
-                        </div>
-                    </div>
                 }
-
 
             </div>
         </div>
