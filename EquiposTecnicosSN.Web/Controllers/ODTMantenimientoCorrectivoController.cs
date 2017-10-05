@@ -179,7 +179,10 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.CausaRaiz = vm.Odt.CausaRaiz;
                 orden.Limpieza = vm.Odt.Limpieza;
                 orden.VerificacionFuncionamiento = vm.Odt.VerificacionFuncionamiento;
-                orden.FechaReparacion = DateTime.Now;
+                if (orden.FechaReparacion == null)
+                {
+                    orden.FechaReparacion = DateTime.Now;
+                }
                 orden.UsuarioReparacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
                 orden.EquipoEntregado = vm.Odt.EquipoEntregado;
                 if (orden.EquipoEntregado)
