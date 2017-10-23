@@ -89,7 +89,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// <value>
         ///   <c>true</c> if [equipo entregado]; otherwise, <c>false</c>.
         /// </value>
-        public bool EquipoEntregado { get; set; }
+        public bool? EquipoEntregado { get; set; }
 
         /// <summary>Jose Gutierrez 24/05/2017
         /// Fecha en que un "tercero" comenzo con la reparacion del equipo
