@@ -109,9 +109,9 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Details", new { id = orden.OrdenDeTrabajoId });
         }
 
-        // GET: OrdenesDeTrabajo/Close/id
+        // GET: OrdenesDeTrabajo/Reparar/id
         [HttpGet]
-        override public ActionResult Close(int id)
+        override public ActionResult Reparar(int id)
         {
             var odt = db.ODTMantenimientosPreventivos.Find(id);
             var model = new MPViewModel();
@@ -122,7 +122,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
-        public async Task<ActionResult> Close(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> Reparar(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
             //SSOHelper.Authenticate();
             //if (SSOHelper.CurrentIdentity == null)
@@ -183,6 +183,56 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
         }
 
+        // GET: OrdenesDeTrabajo/Close/id
+        [HttpGet]
+        override public ActionResult Close(int id)
+        {
+            var odt = db.ODTMantenimientosCorrectivos.Find(id);
+            var model = new MCViewModel();
+            model.Odt = odt;
+            model.NuevaObservacion = NuevaObservacion();
+            return View(model);
+        }
+
+        // POST: OrdenesDeTrabajo/FillRepair
+        [HttpPost]
+        public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        {
+
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
+
+            OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
+                .Include(o => o.SolicitudesRespuestos)
+                .Where(o => o.OrdenDeTrabajoId == vm.Odt.OrdenDeTrabajoId)
+                .SingleOrDefaultAsync();
+
+            if (orden == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (vm.Odt.DetalleReparacion != null)
+            {
+
+
+                orden.Estado = OrdenDeTrabajoEstado.Cerrada;
+                //orden.FechaReparacion = DateTime.Now;
+                orden.FechaCierre = DateTime.Now;
+                //orden.UsuarioReparacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+                orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+
+                db.Entry(orden).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
+            }
+
+            return View(vm);
+        }
         public FileResult DownloadChecklistCompleto(int odtId)
         {
             var orden = db.ODTMantenimientosPreventivos.Find(odtId);

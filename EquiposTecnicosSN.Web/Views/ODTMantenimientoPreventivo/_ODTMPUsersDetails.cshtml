@@ -5,23 +5,23 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-users fa-fw"></i>
-                <a style="text-decoration:none;" data-toggle="collapse" data-parent="#accordion" href="#usuariosODT">Usuarios Involucrados</a>
+                <a style="text-decoration:none;" data-toggle="collapse" data-parent="#accordion" href="#usuariosODT">Agentes Involucrados</a>
 
             </div>
             <div id="usuariosODT" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-3"><label>Usuario de Creaci&oacute;n</label></div>
+                        <div class="col-lg-3"><label>Agente de Creaci&oacute;n</label></div>
                         <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioCreacion)</div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3"><label>Usuario de Inicio</label></div>
+                        <div class="col-lg-3"><label>Agente de Inicio</label></div>
                         <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioInicio)</div>
                     </div>
                     @if (Model.UsuarioCierre != null)
                     {
                         <div class="row">
-                            <div class="col-lg-3"><label>Usuario de Cierre</label></div>
+                            <div class="col-lg-3"><label>Agente de Cierre</label></div>
                             <div class="col-lg-9">@Html.DisplayFor(model => model.UsuarioCierre)</div>
                         </div>
                     }

@@ -1,4 +1,5 @@
 ﻿using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public virtual Equipo Equipo { get; set; }
 
         [DisplayName("Fecha de incio")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, NullDisplayText = " ")]
         [Required]
         public DateTime FechaInicio { get; set; }
 
@@ -52,6 +53,5 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public OrdenDeTrabajoPrioridad Prioridad { get; set; }
 
         public OrdenDeTrabajoEstado Estado { get; set; }
-
     }
 }

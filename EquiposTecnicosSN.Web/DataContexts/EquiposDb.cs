@@ -61,7 +61,6 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Fabricante> Fabricantes { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);

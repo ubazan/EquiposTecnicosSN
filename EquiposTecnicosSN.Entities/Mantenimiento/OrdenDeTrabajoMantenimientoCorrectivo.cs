@@ -95,10 +95,5 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// Solo agrego el ProveedorId para el Get, asi muestra el proveedor asociado a la ODT       
         /// </summary>
         public int? ProveedorId { get; set; }
-
-        //[DisplayName("Proveedor")]
-        //[ForeignKey("ProveedorId")]
-        //public virtual Proveedor Proveedor { get; set; }
-
     }
 }

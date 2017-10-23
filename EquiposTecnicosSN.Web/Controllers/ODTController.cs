@@ -15,6 +15,7 @@ namespace EquiposTecnicosSN.Web.Controllers
     /// <summary>
     /// Web Controller Base para ordenes de trabajo
     /// </summary>
+    /// <seealso cref="System.Web.Mvc.Controller" />
     public abstract class ODTController : Controller
     {
         /// <summary>
@@ -26,7 +27,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// </summary>
         protected ODTsService odtsService = new ODTsService();
         /// <summary>
-        /// 
+        /// The equipos service
         /// </summary>
         protected EquiposService equiposService = new EquiposService();
 
@@ -48,12 +49,21 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         abstract public ActionResult EditGastos(int id);
+
         /// <summary>
-        /// 
+        /// Guarda la fecha en que se cerro, el usuario que lo cerro y cambia el estado de la OT en Cerrada 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         abstract public ActionResult Close(int id);
+
+
+        /// <summary>
+        /// Fue nombrado a reparar, guarda los detalles de la reparacion y deja en estado reparado la OT
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        abstract public ActionResult Reparar(int id);
 
         /// <summary>
         /// 
@@ -147,8 +157,9 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 Fecha = DateTime.Now,
                 Usuario = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
-        };
+            };
         }
+
 
         /// <summary>
         /// 
@@ -165,6 +176,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 var fecha = DateTime.Parse(FechaInicio);
                 result = result.Where(odt => DateTime.Compare(odt.FechaInicio, fecha) >= 0);
+
             }
 
             if (EstadoODT != 0)
@@ -175,7 +187,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             if (TipoODT != 0)
             {
-                OrdenDeTrabajoTipo tipoFiltro = (OrdenDeTrabajoTipo) TipoODT;
+                OrdenDeTrabajoTipo tipoFiltro = (OrdenDeTrabajoTipo)TipoODT;
 
                 switch (tipoFiltro)
                 {

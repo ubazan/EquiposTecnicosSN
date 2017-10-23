@@ -1,14 +1,11 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
 @model IPagedList<OrdenDeTrabajo>
-
 <div class="pagedList" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
     @Html.PagedListPager(Model, page => Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { page = page }), PagedListRenderOptions.Classic)
 </div>
-
 <div class="pagedList" style="text-align: right !important" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
     <label>Mostrando</label>
-
     @for (int i = 25; i <= 100; i += 25)
     {
         <span class="@(Model.PageSize == i ? "disabeld": "")">
@@ -16,10 +13,8 @@
         </span>
     }
 </div>
-
 <table class="table table-hover table-responsive table-condensed table-striped search-odts">
     <thead>
-
         <tr>
             <th>
                 Nº de Referencia
@@ -42,7 +37,6 @@
                 </td>
             </tr>
         }
-
         @foreach (var item in Model)
         {
             string cssClass;
@@ -61,6 +55,10 @@
 
                     case OrdenDeTrabajoPrioridad.Normal:
                         cssClass = "success";
+                        break;
+
+                    case OrdenDeTrabajoPrioridad.Reparada:
+                        cssClass = "info";
                         break;
 
                     default:
@@ -83,9 +81,17 @@
                     @Html.DisplayFor(modelItem => item.FechaInicio)
                 </td>
                 <td class="action-columns">
+                    @if (item.Estado == OrdenDeTrabajoEstado.Reparada)
+                    {
+                        <a class="btn btn-default btn-xs"
+                           href="@Url.Action("Close", item.WebController(), new { id = item.OrdenDeTrabajoId })"
+                           title="Cerrar Orden de trabajo">
+                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                        </a>
+                    }
                     <a class="btn btn-default btn-xs"
-                        href="@Url.Action("Details", item.WebController(), new { id = item.OrdenDeTrabajoId }, null)"
-                        title="Ver Orden de trabajo">
+                       href="@Url.Action("Details", item.WebController(), new { id = item.OrdenDeTrabajoId }, null)"
+                       title="Ver Orden de trabajo">
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                     </a>
                 </td>

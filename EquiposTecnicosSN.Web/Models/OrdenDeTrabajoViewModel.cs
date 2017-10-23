@@ -1,10 +1,12 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
+using EquiposTecnicosSN.Entities.Usuarios;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System;
 using System.Web;
 using EquiposTecnicosSN.Entities.Equipos.Info;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace EquiposTecnicosSN.Web.Models
 {
@@ -38,12 +40,14 @@ namespace EquiposTecnicosSN.Web.Models
         [DisplayName("Proveedor")]
         [ForeignKey("ProveedorId")]
         public virtual Proveedor Proveedor { get; set; }
+
     }
 
 
     public class MCViewModel : MViewModel
     {
         public OrdenDeTrabajoMantenimientoCorrectivo Odt { get; set; }
+
     }
 
     public class MPViewModel : MViewModel

@@ -7,7 +7,8 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         Abierta = 1,
         [Display(Name ="A la espera de repuestos")]
         EsperaRepuesto = 2,
-        Cerrada = 3,
-        Cancelada = 4
+        Reparada = 3,
+        Cerrada = 4,
+        Cancelada = 5
     }
 }

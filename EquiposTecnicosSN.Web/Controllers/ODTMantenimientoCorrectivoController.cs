@@ -67,6 +67,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateForEquipo(MCViewModel vm)
         {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
                 vm.Odt.FechaInicio = DateTime.Now;
@@ -140,9 +141,10 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Details", new { id = orden.OrdenDeTrabajoId });
         }
 
-        // GET: OrdenesDeTrabajo/Close/id
+
+        // GET: OrdenesDeTrabajo/Reparar/id
         [HttpGet]
-        override public ActionResult Close(int id)
+        override public ActionResult Reparar(int id)
         {
             var odt = db.ODTMantenimientosCorrectivos.Find(id);
             var model = new MCViewModel();
@@ -153,7 +155,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
-        public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> Reparar(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
             //SSOHelper.Authenticate();
@@ -180,16 +182,76 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.Limpieza = vm.Odt.Limpieza;
                 orden.VerificacionFuncionamiento = vm.Odt.VerificacionFuncionamiento;
 
-                orden.Estado = OrdenDeTrabajoEstado.Cerrada;
+                orden.Estado = OrdenDeTrabajoEstado.Reparada;
                 orden.FechaReparacion = DateTime.Now;
-                orden.FechaCierre = DateTime.Now;
+                //orden.FechaCierre = DateTime.Now;
                 orden.UsuarioReparacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
-                orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+                //orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
 
                 //estado del equipo
                 var equipo = db.Equipos.Find(orden.EquipoId);
                 equipo.Estado = (vm.Odt.VerificacionFuncionamiento ? EstadoDeEquipo.Funcional : EstadoDeEquipo.NoFuncionalRequiereReparacion);
                 db.Entry(equipo).State = EntityState.Modified;
+
+                //gastos
+                SaveGastos(gastos, orden.OrdenDeTrabajoId);
+
+                //observaciones
+                SaveNuevaObservacion(vm.NuevaObservacion, orden);
+
+                //solicitudes
+                CloseSolicitudesRepuestos(orden);
+
+                db.Entry(orden).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
+            }
+
+            return View(vm);
+        }
+
+        // GET: OrdenesDeTrabajo/Close/id
+        [HttpGet]
+        override public ActionResult Close(int id)
+        {
+            var odt = db.ODTMantenimientosCorrectivos.Find(id);           
+            var model = new MCViewModel();
+            model.Odt = odt;
+            model.NuevaObservacion = NuevaObservacion();          
+            return View(model);
+        }
+
+        // POST: OrdenesDeTrabajo/FillRepair
+        [HttpPost]
+        public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        {
+
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
+
+            OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
+                .Include(o => o.SolicitudesRespuestos)
+                .Where(o => o.OrdenDeTrabajoId == vm.Odt.OrdenDeTrabajoId)
+                .SingleOrDefaultAsync();
+
+            if (orden == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (orden.DetalleReparacion != null)
+            {
+
+
+                orden.Estado = OrdenDeTrabajoEstado.Cerrada;
+                //orden.FechaReparacion = DateTime.Now;
+                orden.FechaCierre = DateTime.Now;
+                //orden.UsuarioReparacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+                orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
 
                 //gastos
                 SaveGastos(gastos, orden.OrdenDeTrabajoId);

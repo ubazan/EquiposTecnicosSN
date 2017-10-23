@@ -2,6 +2,7 @@
 @model EquiposTecnicosSN.Entities.Equipos.Equipo
 <div data-role="content">
     <form>
+        <label id="servicio" hidden>@Html.DisplayFor(model => model.Sector.Nombre)</label>
         <label id="marca" hidden>@Html.DisplayFor(model => model.InformacionHardware.Marca.Nombre)</label>
         <label id="modelo" hidden>@Html.DisplayFor(model => model.InformacionHardware.Modelo.Nombre)</label>
         <label id="nroSerie" hidden>@Html.DisplayFor(model => model.InformacionHardware.NumeroSerie)</label>
@@ -24,10 +25,10 @@
                 content: [
                     {
                         table: {
-                            headerRows: 2,
+                            headerRows: 1,
                             body: [
                                 [{ image: convertImgToBase64URL() },
-                                 { text: 'Electromedicina - HPN', bold: true, fontSize: 35, margin: [0, 90] }],
+                                 { text: 'Electromedicina - HPN \n' + document.getElementById('servicio').innerHTML + ' \n' + document.getElementById('marca').innerHTML + ' \n' + document.getElementById('modelo').innerHTML + ' \n' + document.getElementById('nroSerie').innerHTML, bold: true, fontSize: 35, margin: [0, 20] }],
                             ]
                         },
                         layout: 'noBorders'

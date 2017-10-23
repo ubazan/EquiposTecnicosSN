@@ -1,6 +1,5 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @model EquiposTecnicosSN.Web.Models.MCViewModel
-
 @{
     ViewBag.Title = "Orden de Trabajo Nº " + Model.Odt.NumeroReferencia + " para Mantenimiento Correctivo";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -84,16 +83,16 @@
                                     @if (Model.Odt.ReparoTercero)
                                     {
                                         @Html.DropDownList("ProveedorId", null, "Ninguno", htmlAttributes: new { @class = "form-control" })
+                                        
                                     }
                                     else
                                     {
-                                        @Html.DropDownList("ProveedorId", null, "Ninguno", htmlAttributes: new { @class = "form-control", @disabled = "true" })
+                                        @Html.DropDownList("ProveedorId", null, "Ninguno", htmlAttributes: new { @class = "form-control", @disabled = "true" })                                        
                                     }
-                                    
+
                                     @Html.ValidationMessageFor(model => model.Odt.ProveedorId, "", new { @class = "text-danger" })
                                 </div>
                             </p>
-
                         </div>
                     </div>
                     <hr />

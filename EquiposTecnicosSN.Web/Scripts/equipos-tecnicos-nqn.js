@@ -355,27 +355,6 @@
     });
 
 
-    //MODAL Impresion de OT
-    //$('#modalImpresionOT').on('show.bs.modal', function (event) {
-    //    var button = $(event.relatedTarget);
-    //    var equipoId = button.data('equipo-id');
-    //    var url = button.data("nqn-action");
-
-    //    $(".modal-body").html("<div class='loader'></div>");
-
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: url,
-    //        data: { equipoId: equipoId },
-    //        success: function (view) {
-    //            $(".modal-body").html(view);
-    //        },
-    //        error: function (ex) {
-    //            $(".modal-body").html(ex.responseText);
-    //        }
-    //    });
-    //});
-
     //MODAL INDICADORES DE EQUIPO
     $('#modalTrasladarEquipo').on('show.bs.modal', function (event) {
         $("#indicadoresEquipoResult").html("");
@@ -490,6 +469,7 @@
         onText: "Si",
         offText: "No"
     });
+
     $("#Odt_ReparoTercero").on("switchChange.bootstrapSwitch", function (event, state) {
         if (!state) {
             $("#Odt_FechaInicioTercero").prop("disabled", true);
@@ -508,6 +488,7 @@
         }
     });
 
+
     //Tooltips
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -518,26 +499,5 @@
         btnOkLabel: 'Si'
     });
 
-    //$(document).on("click", "#impresion", function () {
-    //    var text = $(this).parents("tr").find("#marca")[0].innerHTML + "\t" + $(this).parents("tr").find("#modelo")[0].innerHTML + "\t" + $(this).parents("tr").find("#nroSerie")[0].innerHTML;
-    //    document.getElementById('qrCode').innerHTML = create_qrcode(text);
-        
-    //    var imgToExport = document.getElementById('qrCode').children[0];
-    //    var canvas = document.createElement('canvas');
-    //    canvas.width = imgToExport.width;
-    //    canvas.height = imgToExport.height;
-    //    canvas.getContext('2d').drawImage(imgToExport, 0, 0);
-    //    var img = canvas.toDataURL('image/jpg');
-        
-    //    var doc = {
-    //        content: [
-    //            {
-    //                image:  img//convertImgToBase64URL(document.getElementById('qrCode').children[0])
-    //            }
-    //        ]
-    //    };
-        
-    //    pdfMake.createPdf(doc).open();
-    //});
 });
 

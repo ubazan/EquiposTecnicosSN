@@ -146,6 +146,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData">
       <Private>True</Private>
     </Reference>
@@ -1415,7 +1417,7 @@
     <Content Include="Views\Shared\_IndexMC.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\CreateForEquipo.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\FillDiagnose.cshtml" />
-    <Content Include="Views\ODTMantenimientoCorrectivo\Close.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Reparar.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\OrdenDeTrabajoMantenimientoCorrectivo.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\_AddGasto.cshtml" />
     <Content Include="Views\SolicitudesRepuestoServicio\OrderReplacementService.cshtml" />
@@ -1560,6 +1562,7 @@
     <Content Include="Views\Shared\_GenerarQRContent.cshtml" />
     <Content Include="Views\Shared\----_ImpresionOTModal.cshtml" />
     <Content Include="Views\Shared\---_ImpresionOTContent.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Close.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1585,6 +1588,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
