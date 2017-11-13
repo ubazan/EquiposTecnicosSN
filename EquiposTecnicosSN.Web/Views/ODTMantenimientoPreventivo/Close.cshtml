@@ -3,7 +3,7 @@
 @model EquiposTecnicosSN.Web.Models.MPViewModel
 
 @{
-    ViewBag.Title = "Cerrar Orden de trabajo Nº " + Model.Odt.NumeroReferencia;
+    ViewBag.Title = "Cerrar Orden de trabajo Nº " + Model.Odt.OrdenDeTrabajoId;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm("Close", "ODTMantenimientoPreventivo", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -23,10 +23,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.Odt.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => model.Odt.OrdenDeTrabajoId)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Odt.NumeroReferencia)
+                                    @Html.DisplayFor(model => model.Odt.OrdenDeTrabajoId)
                                 </p>
                             </div>
 

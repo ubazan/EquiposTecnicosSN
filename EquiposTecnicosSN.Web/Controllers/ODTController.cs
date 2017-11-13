@@ -167,10 +167,15 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="buscarNumeroReferencia"></param>
         /// <param name="EstadoODT"></param>
         /// <returns></returns>
-        public ActionResult SearchODT(string FechaInicio = "", string buscarNumeroReferencia = "", int? EstadoODT = 0, int? TipoODT = 0, int page = 1, int pageSize = 25)
+        public ActionResult SearchODT(string FechaInicio = "", int? buscarNumeroReferencia = 0, int? EstadoODT = 0, int? TipoODT = 0, int page = 1, int pageSize = 25)
         {
+
+            //var query = db.ODTMantenimientosCorrectivos
+            //    .Where(odt => buscarNumeroReferencia == 0 || odt.OrdenDeTrabajoId == buscarNumeroReferencia);
+            
+
             var result = db.OrdenesDeTrabajo
-                .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia));
+                .Where(odt => buscarNumeroReferencia == 0 || odt.OrdenDeTrabajoId == buscarNumeroReferencia);
 
             if (FechaInicio != "")
             {
@@ -192,7 +197,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 switch (tipoFiltro)
                 {
                     case OrdenDeTrabajoTipo.Correctivo:
-                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoCorrectivo);
+                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoCorrectivo);                        
                         break;
 
                     case OrdenDeTrabajoTipo.Preventivo:

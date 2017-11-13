@@ -1,6 +1,7 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
 @model IPagedList<OrdenDeTrabajo>
+
 <div class="pagedList" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
     @Html.PagedListPager(Model, page => Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { page = page }), PagedListRenderOptions.Classic)
 </div>
@@ -17,8 +18,11 @@
     <thead>
         <tr>
             <th>
-                Nº de Referencia
+                Nº de ODT
             </th>
+            @*<th>
+                Efecto
+            </th>*@
             <th>
                 Estado
             </th>
@@ -72,8 +76,11 @@
             }
             <tr class="@cssClass">
                 <td>
-                    @Html.DisplayFor(modelItem => item.NumeroReferencia)
+                    @Html.DisplayFor(modelItem => item.OrdenDeTrabajoId)
                 </td>
+                @*<td>
+                                      
+                </td>*@
                 <td>
                     @item.Estado.DisplayName()
                 </td>

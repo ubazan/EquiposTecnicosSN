@@ -1,7 +1,7 @@
 ﻿@using EquiposTecnicosSN.Entities.Mantenimiento
 @model OrdenDeTrabajoMantenimientoCorrectivo
 @{
-    ViewBag.Title = "Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Correctivo";
+    ViewBag.Title = "Orden de Trabajo Nº " + Model.OrdenDeTrabajoId+ " para Mantenimiento Correctivo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm())
@@ -16,7 +16,6 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.OrdenDeTrabajoId)
                     @Html.HiddenFor(model => model.Estado)
-                    @Html.HiddenFor(model => model.NumeroReferencia)
                     <div class="row">
                         <div class="col-md-2">
                             @Html.LabelFor(model => model.Equipo, htmlAttributes: new { @class = "control-label" })
@@ -31,10 +30,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => model.OrdenDeTrabajoId)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.NumeroReferencia)
+                                    @Html.DisplayFor(model => model.OrdenDeTrabajoId)
                                 </p>
                             </div>
                             <div class="form-group">
@@ -42,7 +41,7 @@
                                     @Html.DisplayNameFor(model => model.Equipo)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+                                    @Html.DisplayFor(model => model.Equipo.InformacionHardware.Modelo.Nombre)
                                 </p>
                             </div>
                             <div class="form-group">

@@ -2,7 +2,7 @@
 @using EquiposTecnicosSN.Entities.Mantenimiento
 @model EquiposTecnicosSN.Web.Models.MCViewModel
 @{
-    ViewBag.Title = "Orden de Trabajo Nº " + Model.Odt.NumeroReferencia + " para Mantenimiento Correctivo";
+    ViewBag.Title = "Orden de Trabajo Nº " + Model.Odt.OrdenDeTrabajoId + " para Mantenimiento Correctivo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm())
@@ -21,10 +21,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => Model.Odt.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => Model.Odt.OrdenDeTrabajoId)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => Model.Odt.NumeroReferencia)
+                                    @Html.DisplayFor(model => Model.Odt.OrdenDeTrabajoId)
                                 </p>
                             </div>
                             <div class="form-group">
@@ -32,7 +32,7 @@
                                     @Html.DisplayNameFor(model => Model.Odt.Equipo)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => Model.Odt.Equipo.NombreCompleto)
+                                    @Html.DisplayFor(model => Model.Odt.Equipo.InformacionHardware.Modelo.Nombre)
                                 </p>
                             </div>
                             <div class="form-group">

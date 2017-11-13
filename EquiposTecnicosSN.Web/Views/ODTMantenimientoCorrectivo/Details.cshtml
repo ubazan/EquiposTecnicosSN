@@ -2,7 +2,7 @@
 @using EquiposTecnicosSN.Entities.Mantenimiento
 @model OrdenDeTrabajoMantenimientoCorrectivo
 @{
-    ViewBag.Title = "Detalle de Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Correctivo";
+    ViewBag.Title = "Detalle de Orden de Trabajo Nº " + Model.OrdenDeTrabajoId + " para Mantenimiento Correctivo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_ODTMCUsersDetails", Model)
@@ -40,7 +40,7 @@
 @section Scripts {
 
     <script type="text/javascript" charset="utf-8">
-        var text = "@Model.NumeroReferencia";
+        var text = "@Model.OrdenDeTrabajoId";
         document.getElementById('qrCode').innerHTML = create_qrcode(text);
 
         function convertImgToBase64URL(img) {
@@ -79,55 +79,92 @@
             });
         });
         function verImpresion() {
+            var proveedorTercero = '@ViewBag.proveedorTercero';
+            var estadoODT = '@Model.Estado';
+            if (estadoODT == 'Reparada' || estadoODT == 'Cerrada') {
+                var doc = {
+                    content: [
+                        {
+                            style: 'tableExample',
+                            table: {
+                                headerRows: 2,
+                                body: [
+                                    [{ image: convertImgToBase64URL(document.getElementById('imgToExport')), width: 140, height: 30, rowSpan: 2 }, { text: 'Orden de Trabajo MC\n @Model.OrdenDeTrabajoId', colSpan: 3, rowSpan: 2, alignment: 'center', style: 'tableHeader' }, {}, {}],
+                                    [{}, {}, {}, {}],
+                                    [{ text: 'Fecha inicio: @Html.Raw(Model.FechaInicio)', colSpan: 2 }, {}, { text: 'Marca: @Html.Raw(Model.Equipo.InformacionHardware.Marca.Nombre)', colSpan: 2 }, {}],
+                                    [{ text: 'Hospital: @Html.Raw(Model.Equipo.Ubicacion.Nombre)', colSpan: 2 }, {}, { text: 'Modelo: @Html.Raw(Model.Equipo.InformacionHardware.Modelo.Nombre)', colSpan: 2 }, {}],
+                                    [{ text: 'Servicio: @Html.Raw(Model.Equipo.Sector.Nombre)', colSpan: 2 }, {}, { text: 'N/S: @Html.Raw(Model.Equipo.InformacionHardware.NumeroSerie)', colSpan: 2 }, {}],
+                                    [{ text: 'Tipo: @Html.Raw(Model.Equipo.Tipo().DisplayName())', colSpan: 2 }, {}, { text: 'Matricula: @Html.Raw(Model.Equipo.NumeroMatricula)', colSpan: 2 }, {}],
+                                    [{ text: 'UMDNS: @Html.Raw(Model.Equipo.UMDNS)', colSpan: 2 }, {}, { text: 'Fecha Fabr: @Html.Raw(Model.Equipo.InformacionHardware.AnioFabricacion)', colSpan: 2 }, {}],
+                                    [{ text: 'Funcional: @Html.Raw((Model.VerificacionFuncionamiento ? "Sí" : "No"))', colSpan: 2 }, {}, { text: 'Reparó: @Html.Raw(Model.UsuarioReparacion)', colSpan: 2 }, {}],
+                                    [{ text: 'Posee un reemplazo: @Html.Raw((Model.EquipoRemplazo ? "Sí" : "No"))', colSpan: 2 }, {}, { text: 'Telefono: no guardado', colSpan: 2 }, {}],
+                                    [{ colSpan: 4, border: [true, true, true, true], text: 'Problema: @Html.Raw(Model.Descripcion)' }, '', '', ''],
+                                    [{ colSpan: 2, text: 'Diagnóstico: @Html.Raw(Model.Diagnostico)' }, {}, { colSpan: 2, image: convertImgToBase64URL(document.getElementById('qrCode').children[0]), width: 60, height: 60, alignment: 'center' }, ''],
+                                    [{ colSpan: 2, text: 'Reparó Tercero: @Html.Raw((Model.ReparoTercero ? "Sí" : "No")). Proveedor: ' + proveedorTercero }, {}, { colSpan: 2, text: 'Fecha Inicio Tercero: @Model.FechaInicioTercero' }, {}],
+                                    [{ colSpan: 2, border: [true, true, true, true], text: 'Detalle Reparación: @Html.Raw(Model.DetalleReparacion)' }, {}, { text: 'Fecha Reparación: @Html.Raw(Model.FechaReparacion)', colSpan: 2 }, {}],
+                                ]
+                            }
+                        }
+                    ],
+                    styles: {
+                        header: {
+                            fontSize: 13,
+                            bold: true,
+                            margin: [0, 0, 0, 10]
+                        },
+                        subheader: {
+                            fontSize: 11,
+                            bold: true,
+                            margin: [0, 10, 0, 5]
+                        },
+                        tableExample: {
+                            margin: [0, 5, 0, 15]
+                        },
+                        tableHeader: {
+                            bold: true,
+                            fontSize: 10,
+                            color: 'black'
+                        }
+                    },
+                    defaultStyle: {
+                        fontSize: 10
+                        // alignment: 'justify'
+                    }
+                };
+            }
+            else {
+                var doc = {
+                    pageOrientation: 'landscape',
+                    content: [
+                        {
+                            alignment: 'center',
+                            columns: [
+                                {
+                                    image: convertImgToBase64URL(document.getElementById('qrCode').children[0]), width: 230, height: 230, alignment: 'center', margin: [5,5]
+                                },
+                                {
+                                    text: 'Nro ODT: @Model.OrdenDeTrabajoId\nFecha inicio: @Html.Raw(Model.FechaInicio)\nEquipo\nMarca: @Html.Raw(Model.Equipo.InformacionHardware.Marca.Nombre)\nModelo: @Html.Raw(Model.Equipo.InformacionHardware.Modelo.Nombre)', margin: [10, 10], fontSize: 30
+                                }
+                            ],
+                            //style: 'tableExample',
+                            //table: {
+                            //    body: [
+                            //        [{ colSpan: 2, , alignment: 'right' }, {}, { colSpan: 2, image: convertImgToBase64URL(document.getElementById('qrCode').children[0]), width: 200, height: 200, alignment: 'center', margin: [0,0] }, ''],
+                            //    ]
+                            //},
+                            //layout: 'noBorders'
+                        }
+                    ],
+                    styles: {
+                        defaultStyle: {
+                            fontSize: 35
 
-            var doc = {
-                content: [
-                    {
-                        style: 'tableExample',
-                        table: {
-                            headerRows: 2,
-                            body: [
-                                [{ image: convertImgToBase64URL(document.getElementById('imgToExport')), width: 140, height: 30, rowSpan: 2 }, { text: 'Solicitud de Mantenimiento Correctivo \n Orden de Trabajo \n @Model.NumeroReferencia', colSpan: 3, rowSpan: 2, alignment: 'center', style: 'tableHeader' }, {}, {}],
-                                [{}, {}, {}, {}],
-                                [{ text: 'Fecha de inicio: @Html.Raw(Model.FechaInicio)', colSpan: 2 }, {}, { text: 'Marca: @Html.Raw(Model.Equipo.InformacionHardware.Marca.Nombre)', colSpan: 2 }, {}],
-                                [{ text: 'Hospital: @Html.Raw(Model.Equipo.Ubicacion.Nombre)', colSpan: 2 }, {}, { text: 'Modelo: @Html.Raw(Model.Equipo.InformacionHardware.Modelo.Nombre)', colSpan: 2 }, {}],
-                                [{ text: 'Servicio: @Html.Raw(Model.Equipo.Sector.Nombre)', colSpan: 2 }, {}, { text: 'Numero de serie: @Html.Raw(Model.Equipo.InformacionHardware.NumeroSerie)', colSpan: 2 }, {}],
-                                [{ text: 'Tipo de Equipo: @Html.Raw(Model.Equipo.Tipo().DisplayName())', colSpan: 2 }, {}, { text: 'Matricula: @Html.Raw(Model.Equipo.NumeroMatricula)', colSpan: 2 }, {}],
-                                [{ text: 'UMDNS: @Html.Raw(Model.Equipo.UMDNS)', colSpan: 2 }, {}, { text: 'Fecha de Fabricación: @Html.Raw(Model.Equipo.InformacionHardware.AnioFabricacion)', colSpan: 2 }, {}],
-                                [{ text: 'Funcional: @Html.Raw((Model.VerificacionFuncionamiento ? "Sí" : "No"))', colSpan: 2 }, {}, { text: 'Agente: @Html.Raw(Model.UsuarioInicio)', colSpan: 2 }, {}],
-                                [{ text: 'Posee un reemplazo: @Html.Raw((Model.EquipoRemplazo ? "Sí" : "No"))', colSpan: 2 }, {}, { text: 'Telefono: no guardado', colSpan: 2 }, {}],
-                                [{ colSpan: 4, border: [true, true, true, true], text: 'Descripción del problema:\n @Html.Raw(Model.Descripcion)' }, '', '', ''],
-                                [{ colSpan: 2, text: 'Servicio de Electromedicina - HPN\nBuenos Aires 451 - 8300. Neuquén\nTel: (0299) 4490-822/891' }, ' ', { colSpan: 2, image: convertImgToBase64URL(document.getElementById('qrCode').children[0]), width: 120, height: 120, alignment: 'center' }, ''],
-                                [{ colSpan: 4, border: [true, true, true, true], style: 'tableHeader', text: 'Importante: No perder este comprobante. La presentación del mismo es obligatoria para retirar un equipo del servicio y/o consultar su estado.' }, '', '', ''],
-                            ]
+                            // alignment: 'justify'
                         }
                     }
-                ],
-                styles: {
-                    header: {
-                        fontSize: 18,
-                        bold: true,
-                        margin: [0, 0, 0, 10]
-                    },
-                    subheader: {
-                        fontSize: 16,
-                        bold: true,
-                        margin: [0, 10, 0, 5]
-                    },
-                    tableExample: {
-                        margin: [0, 5, 0, 15]
-                    },
-                    tableHeader: {
-                        bold: true,
-                        fontSize: 13,
-                        color: 'black'
-                    }
-                },
-                defaultStyle: {
-                    // alignment: 'justify'
-                }
-            };
+                };
 
+            }
             pdfMake.createPdf(doc).print();
         }
     </script>

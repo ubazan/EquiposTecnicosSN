@@ -116,7 +116,6 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 c => new
                     {
                         OrdenDeTrabajoId = c.Int(nullable: false, identity: true),
-                        NumeroReferencia = c.String(nullable: false, maxLength: 20),
                         EquipoId = c.Int(nullable: false),
                         FechaInicio = c.DateTime(nullable: false),
                         UsuarioInicio = c.String(nullable: false),

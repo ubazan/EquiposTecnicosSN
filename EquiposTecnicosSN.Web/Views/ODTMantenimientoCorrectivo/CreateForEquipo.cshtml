@@ -16,24 +16,26 @@
                     @Html.HiddenFor(model => model.Odt.OrdenDeTrabajoId)
                     @Html.HiddenFor(model => model.Odt.EquipoId)
                     @Html.HiddenFor(model => model.Odt.Estado)
-                    @Html.HiddenFor(model => model.Odt.NumeroReferencia)
                     @Html.HiddenFor(model => model.Odt.UsuarioInicio)
                     <div class="row">
                         <div class="col-md-6">
+                            @if (Model.Odt.OrdenDeTrabajoId != 0)
+                            {
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.Odt.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => model.Odt.OrdenDeTrabajoId)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Odt.NumeroReferencia)
+                                    @Html.DisplayFor(model => model.Odt.OrdenDeTrabajoId)
                                 </p>
                             </div>
+                            }
                             <div class="form-group">
                                 <label>
                                     @Html.DisplayNameFor(model => model.Odt.Equipo)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Odt.Equipo.NombreCompleto)
+                                    @Html.DisplayFor(model => model.Odt.Equipo.InformacionHardware.Modelo.Nombre)
                                 </p>
                             </div>
                             <div class="form-group">
@@ -64,7 +66,6 @@
                                     &nbsp;
                                 </p>
                             </div>
-
                             <div class="form-group">
                                 <label class="control-label switch-label">Prioridad</label>
                                 <div class="btn-group" data-toggle="buttons">

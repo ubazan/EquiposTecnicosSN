@@ -22,12 +22,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public override ActionResult CreateForEquipo(int id)
         {
 
-            //SSOHelper.Authenticate();
-            //if (SSOHelper.CurrentIdentity == null)
-            //{
-            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-            //    Response.Redirect(ssoUrl + "/Login.aspx");
-            //}
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
 
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre");
 
@@ -38,7 +38,6 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Equipo = equipo,
                 Estado = OrdenDeTrabajoEstado.Abierta,
                 FechaInicio = DateTime.Now,
-                NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
                 UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"),
                 UsuarioCreacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
@@ -124,12 +123,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Reparar(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            //SSOHelper.Authenticate();
-            //if (SSOHelper.CurrentIdentity == null)
-            //{
-            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-            //    Response.Redirect(ssoUrl + "/Login.aspx");
-            //}
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
 
             try
             {
@@ -199,12 +198,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            //SSOHelper.Authenticate();
-            //if (SSOHelper.CurrentIdentity == null)
-            //{
-            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-            //    Response.Redirect(ssoUrl + "/Login.aspx");
-            //}
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
 
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
@@ -239,7 +238,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             if (orden != null)
             {
-                return File(orden.ChecklistCompletoContent, orden.ChecklistCompletoContentType, "ODT " + orden.NumeroReferencia + orden.ChecklistCompletoFileExtension);
+                return File(orden.ChecklistCompletoContent, orden.ChecklistCompletoContentType, "ODT " + orden.OrdenDeTrabajoId + orden.ChecklistCompletoFileExtension);
             }
 
             return null;

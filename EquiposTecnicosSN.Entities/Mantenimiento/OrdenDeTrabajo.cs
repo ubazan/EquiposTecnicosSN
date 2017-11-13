@@ -14,14 +14,10 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
     [Table("OrdenesDeTrabajo")]
     public abstract class OrdenDeTrabajo
     {
+        [DisplayName("Nro ODT")]
         [Key]
         [Required]
         public int OrdenDeTrabajoId { get; set; }
-
-        [DisplayName("Nº Referencia")]
-        [Required]
-        [StringLength(20)]
-        public string NumeroReferencia { get; set; }
 
         [Required]
         public int EquipoId { get; set; }
@@ -53,5 +49,6 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public OrdenDeTrabajoPrioridad Prioridad { get; set; }
 
         public OrdenDeTrabajoEstado Estado { get; set; }
+
     }
 }

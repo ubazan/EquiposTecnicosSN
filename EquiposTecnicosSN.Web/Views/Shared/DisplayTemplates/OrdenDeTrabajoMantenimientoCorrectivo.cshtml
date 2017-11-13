@@ -20,10 +20,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>
-                                @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                @Html.DisplayNameFor(model => model.OrdenDeTrabajoId)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.NumeroReferencia)
+                                @Html.DisplayFor(model => model.OrdenDeTrabajoId)
                             </p>
                         </div>
 
@@ -32,7 +32,7 @@
                                 @Html.DisplayNameFor(model => model.Equipo)
                             </label>
                             <p class="form-control-static">
-                                @Html.ActionLink(Model.Equipo.NombreCompleto, "Details", "EquiposBase", new { id = Model.Equipo.EquipoId }, null)
+                                @Html.ActionLink(Model.Equipo.InformacionHardware.Modelo.Nombre, "Details", "EquiposBase", new { id = Model.Equipo.EquipoId }, null)
                             </p>
                         </div>
                         <div class="form-group">
