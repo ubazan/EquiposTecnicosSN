@@ -81,26 +81,29 @@ namespace EquiposTecnicosSN.Web.Services
                 return 0;
             }
 
-            double sumaTiemposFuncionamiento = 0;
-            for (int i = 0; i < odts.Count - 1; i++)
-            {
-                var current = odts[i];
-                if (i == 0)
-                {
-                    sumaTiemposFuncionamiento += (current.FechaInicio - fechaInicio).TotalDays;
-                }
-                else if (i == odts.Count -1)
-                {
-                    sumaTiemposFuncionamiento += (fechaFin - current.FechaInicio).TotalDays;
-                }
-                else
-                {
-                    var prev = odts[i - 1];
-                    sumaTiemposFuncionamiento += (current.FechaInicio - prev.FechaCierre.Value).TotalDays;
-                }
-            }
+            //Comento ya que la forma de calcular el TMEF tiene objeciones. Ulises: 30/11/2017
+            //double sumaTiemposFuncionamiento = 0;
+            //for (int i = 0; i < odts.Count - 1; i++)
+            //{
+            //    var current = odts[i];
+            //    if (i == 0)
+            //    {
+            //        sumaTiemposFuncionamiento += (current.FechaInicio - fechaInicio).TotalDays;
+            //    }
+            //    else if (i == odts.Count -1)
+            //    {
+            //        sumaTiemposFuncionamiento += (fechaFin - current.FechaInicio).TotalDays;
+            //    }
+            //    else
+            //    {
+            //        var prev = odts[i - 1];
+            //        sumaTiemposFuncionamiento += (current.FechaInicio - prev.FechaCierre.Value).TotalDays;
+            //    }
+            //}
+            double sumaTiempoTotal= 0;
+            sumaTiempoTotal = (fechaFin - fechaInicio).TotalDays;
 
-            return Math.Round(sumaTiemposFuncionamiento / odts.Count, 4);
+            return Math.Round(sumaTiempoTotal / odts.Count, 4);
         }
 
         /// <summary>
@@ -112,11 +115,14 @@ namespace EquiposTecnicosSN.Web.Services
         /// <returns>Tiempo en minutos con dos decimales.</returns>
         public double TiempoMedioParaReparar(int equipoId, DateTime fechaInicio, DateTime fechaFin)
         {
+            double controlDias = 0;
+            int controlODT = 0;
             var odts = db.ODTMantenimientosCorrectivos
                 .Where(odt => odt.EquipoId == equipoId)
                 .Where(odt => odt.FechaCierre != null)
                 .Where(odt => DateTime.Compare(odt.FechaInicio, fechaInicio) > 0)
                 .Where(odt => DateTime.Compare(odt.FechaCierre.Value, fechaFin) < 0)
+                .Where(odt => odt.FechaReparacion != null)
                 .ToList();
 
             if (odts.Count == 0)
@@ -127,7 +133,12 @@ namespace EquiposTecnicosSN.Web.Services
             double sumaTiemposOdts = 0;
             foreach(var odt in odts)
             {
-                sumaTiemposOdts += (odt.FechaCierre.Value - odt.FechaInicio).TotalMinutes;
+                sumaTiemposOdts += (odt.FechaReparacion.Value - odt.FechaInicio).TotalDays;
+                if((odt.FechaReparacion.Value - odt.FechaInicio).TotalDays < 0)
+                {
+                    controlDias = (odt.FechaReparacion.Value - odt.FechaInicio).TotalDays;
+                    controlODT = odt.OrdenDeTrabajoId;
+                }
             }
 
             return Math.Round(sumaTiemposOdts / odts.Count, 4);

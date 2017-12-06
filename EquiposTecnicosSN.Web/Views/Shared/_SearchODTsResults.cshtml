@@ -20,9 +20,12 @@
             <th>
                 Nº de ODT
             </th>
-            @*<th>
-                Efecto
-            </th>*@
+            <th>
+                Marca
+            </th>
+            <th>
+                Modelo
+            </th>
             <th>
                 Estado
             </th>
@@ -78,9 +81,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.OrdenDeTrabajoId)
                 </td>
-                @*<td>
-                                      
-                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo.InformacionHardware.Marca.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo.InformacionHardware.Modelo.Nombre)
+                </td>
                 <td>
                     @item.Estado.DisplayName()
                 </td>

@@ -45,12 +45,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult CreateForEquipo(int id)
         {
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             var equipo = db.Equipos.Find(id);
             var vm = new MCViewModel();
@@ -112,12 +112,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> FillDiagnose(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             if (vm.Odt.Diagnostico == null &&
                 vm.Odt.Gastos == null &&
@@ -164,12 +164,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> Reparar(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
@@ -232,12 +232,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)

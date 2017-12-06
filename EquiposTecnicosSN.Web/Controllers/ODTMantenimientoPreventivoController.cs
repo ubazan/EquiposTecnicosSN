@@ -22,12 +22,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public override ActionResult CreateForEquipo(int id)
         {
 
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre");
 
@@ -123,12 +123,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Reparar(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             try
             {
@@ -198,12 +198,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            //SSOHelper.Authenticate();
+            //if (SSOHelper.CurrentIdentity == null)
+            //{
+            //    string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            //    Response.Redirect(ssoUrl + "/Login.aspx");
+            //}
 
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
